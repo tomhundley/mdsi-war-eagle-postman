@@ -7,6 +7,33 @@
 	},
 	"item": [
 		{
+			"name": "Purchase Order Receipt",
+			"item": [
+				{
+					"name": "Trigger PO Receipt Poller (Manual)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/purchaseOrderReceipt/poll?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "purchaseOrderReceipt", "poll"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Manually trigger the Purchase Order Receipt poller to process receipts from D365"
+					},
+					"response": []
+				}
+			],
+			"description": "Purchase Order Receipt processing endpoints"
+		},
+		{
 			"name": "Diagnostics",
 			"item": [
 				{
