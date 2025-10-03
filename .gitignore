@@ -1,0 +1,13 @@
+# Postman local environment files (may contain secrets)
+**/local.*.json
+
+# macOS
+.DS_Store
+
+# Editor directories
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak

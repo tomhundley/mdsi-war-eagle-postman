@@ -1,0 +1,111 @@
+# War Eagle Postman Collections
+
+Centralized Postman collections and environments for all War Eagle Azure Function applications.
+
+## Overview
+
+This repository contains:
+- **Collections**: One Postman collection per Azure Function app
+- **Environments**: Shared environments (Dev, UAT, Prd, Global) used across all collections
+
+## Structure
+
+```
+mdsi-war-eagle-postman/
+├── collections/
+│   ├── BoJackson.postman_collection.json
+│   └── [other function app collections...]
+├── environments/
+│   ├── War-Eagle-Dev.postman_environment.json
+│   ├── War-Eagle-UAT.postman_environment.json
+│   ├── War-Eagle-Prd.postman_environment.json
+│   └── War-Eagle-Global.postman_environment.json
+└── README.md
+```
+
+## Getting Started
+
+### 1. Import Collections and Environments
+
+1. Open Postman
+2. Click **Import** in the top left
+3. Import all collections from the `collections/` folder
+4. Import all environments from the `environments/` folder
+
+### 2. Select an Environment
+
+In Postman's top-right corner:
+1. Select the appropriate environment (Dev, UAT, or Prd)
+2. Optionally enable the Global environment for shared variables
+
+### 3. Configure Environment Variables
+
+Each environment requires configuration:
+
+#### Dev/UAT/Prd Environments
+- `baseUrl` - Azure Function App URL (e.g., `https://func-bojackson-dev.azurewebsites.net`)
+- `functionKey` - Function authorization key (obtain from Azure Portal)
+
+#### Global Environment
+- `accessToken` - Shared access tokens (D365, etc.)
+- Other shared variables used across multiple function apps
+
+**Note**: Fill in the `functionKey` values manually after importing. These are NOT checked into source control.
+
+## Collections
+
+### Bo Jackson (`BoJackson.postman_collection.json`)
+
+Purchase Order Receipt integration service.
+
+**Endpoints:**
+- `GET /api/diagnostics/heartbeat` - Health check
+- `GET /api/diagnostics/version` - Get API version
+- `GET /api/diagnostics/apiName` - Get API name
+- `GET /api/diagnostics/exceptionTest` - Test exception handling
+- `GET /api/diagnostics/customHttpStatus/{statusCode}/{message}` - Test custom HTTP status
+- `POST /api/diagnostics/logTest` - Test logging functionality
+
+## Environment Variables Reference
+
+### Dev Environment
+- `baseUrl`: `https://func-bojackson-dev.azurewebsites.net`
+- `functionKey`: `[YOUR_DEV_FUNCTION_KEY]`
+
+### UAT Environment
+- `baseUrl`: `https://func-bojackson-uat.azurewebsites.net`
+- `functionKey`: `[YOUR_UAT_FUNCTION_KEY]`
+
+### Prd Environment
+- `baseUrl`: `https://func-bojackson-prd.azurewebsites.net`
+- `functionKey`: `[YOUR_PRD_FUNCTION_KEY]`
+
+### Global Environment
+- `accessToken`: Shared access tokens set dynamically
+- Common configuration values that span all environments
+
+## Adding New Collections
+
+When creating a new Azure Function app:
+
+1. Create a new collection file: `collections/[FunctionAppName].postman_collection.json`
+2. Use environment variables for all environment-specific values:
+   - `{{baseUrl}}` for the base URL
+   - `{{functionKey}}` for authorization
+   - `{{accessToken}}` or other Global variables for shared tokens
+3. Document the new collection in this README
+
+## Security Notes
+
+- **Never commit function keys or access tokens** to this repository
+- Function keys should be stored in environment variables with empty default values
+- Access tokens should be set in the Global environment at runtime
+- Use environment variables for all sensitive data
+
+## Contributing
+
+1. Keep collection organization consistent
+2. Use descriptive request names
+3. Add tests to validate responses
+4. Document new collections in this README
+5. Ensure all sensitive values use environment variables
