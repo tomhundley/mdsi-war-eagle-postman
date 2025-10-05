@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "cam-newton-collection-001",
+		"name": "Cam Newton - Purchase Order Receipt Notifications",
+		"description": "Postman collection for Cam Newton Azure Function App - Purchase Order Receipt notification queue processor service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Diagnostics",
+			"item": [
+				{
+					"name": "Heartbeat",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/heartbeat?code={{camNewtonFunctionKey}}",
+							"host": ["{{camNewtonBaseUrl}}"],
+							"path": ["api", "diagnostics", "heartbeat"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{camNewtonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Health check endpoint - returns HTTP 200 if the function app is running"
+					},
+					"response": []
+				},
+				{
+					"name": "Version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/version?code={{camNewtonFunctionKey}}",
+							"host": ["{{camNewtonBaseUrl}}"],
+							"path": ["api", "diagnostics", "version"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{camNewtonFunctionKey}}",
+									"description": "Function authorization key"
+								},
+								{
+									"key": "includeApiName",
+									"value": "false",
+									"description": "Set to true to include API name in response",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Returns the application version. Add query param includeApiName=true to include the API name"
+					},
+					"response": []
+				},
+				{
+					"name": "API Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/apiName?code={{camNewtonFunctionKey}}",
+							"host": ["{{camNewtonBaseUrl}}"],
+							"path": ["api", "diagnostics", "apiName"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{camNewtonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Returns the application name"
+					},
+					"response": []
+				},
+				{
+					"name": "Exception Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/exceptionTest?code={{camNewtonFunctionKey}}",
+							"host": ["{{camNewtonBaseUrl}}"],
+							"path": ["api", "diagnostics", "exceptionTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{camNewtonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Triggers a test exception to validate exception handling and logging"
+					},
+					"response": []
+				},
+				{
+					"name": "Custom HTTP Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/customHttpStatus/418/I'm a teapot?code={{camNewtonFunctionKey}}",
+							"host": ["{{camNewtonBaseUrl}}"],
+							"path": ["api", "diagnostics", "customHttpStatus", "418", "I'm a teapot"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{camNewtonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Returns a custom HTTP status code with a custom message. Format: /customHttpStatus/{statusCode}/{message}"
+					},
+					"response": []
+				},
+				{
+					"name": "Log Test",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"Test log message from Postman\"\n}"
+						},
+						"url": {
+							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/logTest?code={{camNewtonFunctionKey}}",
+							"host": ["{{camNewtonBaseUrl}}"],
+							"path": ["api", "diagnostics", "logTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{camNewtonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests logging functionality. Send a POST request with JSON body containing a message property"
+					},
+					"response": []
+				}
+			],
+			"description": "Diagnostic and health check endpoints for monitoring and testing the Cam Newton function app"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "camNewtonBaseUrl",
+			"value": "https://func-camnewton-dev.azurewebsites.net",
+			"type": "string"
+		},
+		{
+			"key": "camNewtonFunctionKey",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
