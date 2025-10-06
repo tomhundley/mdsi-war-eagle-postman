@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "auburn-thunder-collection-001",
+		"name": "FDD-2119 PO Receipts: Auburn Thunder - Slack Notifications",
+		"description": "Postman collection for Auburn Thunder Azure Function App - Slack notification handler service for purchase order receipt events",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Diagnostics",
+			"item": [
+				{
+					"name": "Heartbeat",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/heartbeat?code={{auburnThunderFunctionKey}}",
+							"host": ["{{auburnThunderBaseUrl}}"],
+							"path": ["api", "diagnostics", "heartbeat"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{auburnThunderFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Health check endpoint - returns HTTP 200 if the function app is running"
+					},
+					"response": []
+				},
+				{
+					"name": "Version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/version?code={{auburnThunderFunctionKey}}",
+							"host": ["{{auburnThunderBaseUrl}}"],
+							"path": ["api", "diagnostics", "version"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{auburnThunderFunctionKey}}",
+									"description": "Function authorization key"
+								},
+								{
+									"key": "includeApiName",
+									"value": "false",
+									"description": "Set to true to include API name in response",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Returns the application version. Add query param includeApiName=true to include the API name"
+					},
+					"response": []
+				},
+				{
+					"name": "API Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/apiName?code={{auburnThunderFunctionKey}}",
+							"host": ["{{auburnThunderBaseUrl}}"],
+							"path": ["api", "diagnostics", "apiName"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{auburnThunderFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Returns the application name"
+					},
+					"response": []
+				},
+				{
+					"name": "Exception Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/exceptionTest?code={{auburnThunderFunctionKey}}",
+							"host": ["{{auburnThunderBaseUrl}}"],
+							"path": ["api", "diagnostics", "exceptionTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{auburnThunderFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Triggers a test exception to validate exception handling and logging"
+					},
+					"response": []
+				},
+				{
+					"name": "Log Test",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"Test log message from Postman\"\n}"
+						},
+						"url": {
+							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/logTest?code={{auburnThunderFunctionKey}}",
+							"host": ["{{auburnThunderBaseUrl}}"],
+							"path": ["api", "diagnostics", "logTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{auburnThunderFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests the logging configuration by sending a test message to the logger"
+					},
+					"response": []
+				}
+			],
+			"description": "Diagnostic endpoints for testing and monitoring the Auburn Thunder Slack notification handler"
+		}
+	]
+}
