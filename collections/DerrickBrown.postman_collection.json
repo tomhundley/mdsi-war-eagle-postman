@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "cam-newton-collection-001",
-		"name": "FDD-2119 PO Receipts: Cam Newton - Processor",
-		"description": "Postman collection for Cam Newton Azure Function App - Purchase Order Receipt notification queue processor service",
+		"_postman_id": "derrick-brown-collection-001",
+		"name": "FDD-2119 PO Receipts: Derrick Brown - Failure Handler",
+		"description": "Postman collection for Derrick Brown Azure Function App - Failure handler service for purchase order receipt integration failures",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -15,13 +15,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/heartbeat?code={{camNewtonFunctionKey}}",
-							"host": ["{{camNewtonBaseUrl}}"],
+							"raw": "{{derrickBrownBaseUrl}}/api/diagnostics/heartbeat?code={{derrickBrownFunctionKey}}",
+							"host": ["{{derrickBrownBaseUrl}}"],
 							"path": ["api", "diagnostics", "heartbeat"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{camNewtonFunctionKey}}",
+									"value": "{{derrickBrownFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -36,13 +36,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/version?code={{camNewtonFunctionKey}}",
-							"host": ["{{camNewtonBaseUrl}}"],
+							"raw": "{{derrickBrownBaseUrl}}/api/diagnostics/version?code={{derrickBrownFunctionKey}}",
+							"host": ["{{derrickBrownBaseUrl}}"],
 							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{camNewtonFunctionKey}}",
+									"value": "{{derrickBrownFunctionKey}}",
 									"description": "Function authorization key"
 								},
 								{
@@ -63,13 +63,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/apiName?code={{camNewtonFunctionKey}}",
-							"host": ["{{camNewtonBaseUrl}}"],
+							"raw": "{{derrickBrownBaseUrl}}/api/diagnostics/apiName?code={{derrickBrownFunctionKey}}",
+							"host": ["{{derrickBrownBaseUrl}}"],
 							"path": ["api", "diagnostics", "apiName"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{camNewtonFunctionKey}}",
+									"value": "{{derrickBrownFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -84,39 +84,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/exceptionTest?code={{camNewtonFunctionKey}}",
-							"host": ["{{camNewtonBaseUrl}}"],
+							"raw": "{{derrickBrownBaseUrl}}/api/diagnostics/exceptionTest?code={{derrickBrownFunctionKey}}",
+							"host": ["{{derrickBrownBaseUrl}}"],
 							"path": ["api", "diagnostics", "exceptionTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{camNewtonFunctionKey}}",
+									"value": "{{derrickBrownFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
 						"description": "Triggers a test exception to validate exception handling and logging"
-					},
-					"response": []
-				},
-				{
-					"name": "Custom HTTP Status",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/customHttpStatus/418/I'm a teapot?code={{camNewtonFunctionKey}}",
-							"host": ["{{camNewtonBaseUrl}}"],
-							"path": ["api", "diagnostics", "customHttpStatus", "418", "I'm a teapot"],
-							"query": [
-								{
-									"key": "code",
-									"value": "{{camNewtonFunctionKey}}",
-									"description": "Function authorization key"
-								}
-							]
-						},
-						"description": "Returns a custom HTTP status code with a custom message. Format: /customHttpStatus/{statusCode}/{message}"
 					},
 					"response": []
 				},
@@ -135,55 +114,23 @@
 							"raw": "{\n  \"message\": \"Test log message from Postman\"\n}"
 						},
 						"url": {
-							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/logTest?code={{camNewtonFunctionKey}}",
-							"host": ["{{camNewtonBaseUrl}}"],
+							"raw": "{{derrickBrownBaseUrl}}/api/diagnostics/logTest?code={{derrickBrownFunctionKey}}",
+							"host": ["{{derrickBrownBaseUrl}}"],
 							"path": ["api", "diagnostics", "logTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{camNewtonFunctionKey}}",
+									"value": "{{derrickBrownFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
-						"description": "Tests logging functionality. Send a POST request with JSON body containing a message property"
+						"description": "Tests the logging configuration by sending a test message to the logger"
 					},
 					"response": []
 				}
 			],
-			"description": "Diagnostic and health check endpoints for monitoring and testing the Cam Newton function app"
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "camNewtonBaseUrl",
-			"value": "https://func-camnewton-dev.azurewebsites.net",
-			"type": "string"
-		},
-		{
-			"key": "camNewtonFunctionKey",
-			"value": "",
-			"type": "string"
+			"description": "Diagnostic endpoints for testing and monitoring the Derrick Brown failure handler"
 		}
 	]
 }

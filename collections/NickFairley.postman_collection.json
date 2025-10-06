@@ -1,0 +1,173 @@
+{
+    "info": {
+        "_postman_id": "nick-fairley-collection-001",
+        "name": "FDD-2119 PO Receipts: Nick Fairley - Success Handler",
+        "description": "Diagnostics endpoints for the Nick Fairley success handler Azure Functions app.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Diagnostics",
+            "item": [
+                {
+                    "name": "Heartbeat",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{nickFairleyBaseUrl}}/api/diagnostics/heartbeat?code={{nickFairleyFunctionKey}}",
+                            "host": [
+                                "{{nickFairleyBaseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "diagnostics",
+                                "heartbeat"
+                            ],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "{{nickFairleyFunctionKey}}",
+                                    "description": "Function authorization key"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Version",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{nickFairleyBaseUrl}}/api/diagnostics/version?code={{nickFairleyFunctionKey}}&includeApiName={{includeApiName}}",
+                            "host": [
+                                "{{nickFairleyBaseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "diagnostics",
+                                "version"
+                            ],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "{{nickFairleyFunctionKey}}",
+                                    "description": "Function authorization key"
+                                },
+                                {
+                                    "key": "includeApiName",
+                                    "value": "false",
+                                    "description": "Set to true to include API name in response",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "API Name",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{nickFairleyBaseUrl}}/api/diagnostics/apiName?code={{nickFairleyFunctionKey}}",
+                            "host": [
+                                "{{nickFairleyBaseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "diagnostics",
+                                "apiName"
+                            ],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "{{nickFairleyFunctionKey}}",
+                                    "description": "Function authorization key"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Exception Test",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{nickFairleyBaseUrl}}/api/diagnostics/exceptionTest?code={{nickFairleyFunctionKey}}",
+                            "host": [
+                                "{{nickFairleyBaseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "diagnostics",
+                                "exceptionTest"
+                            ],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "{{nickFairleyFunctionKey}}",
+                                    "description": "Function authorization key"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Log Test",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"message\": \"Test log entry from Postman\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{nickFairleyBaseUrl}}/api/diagnostics/logTest?code={{nickFairleyFunctionKey}}",
+                            "host": [
+                                "{{nickFairleyBaseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "diagnostics",
+                                "logTest"
+                            ],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "{{nickFairleyFunctionKey}}",
+                                    "description": "Function authorization key"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Diagnostics endpoints exposed by the Nick Fairley Azure Functions app."
+        }
+    ],
+    "variable": [
+        {
+            "key": "nickFairleyBaseUrl",
+            "value": "https://func-nickfairley-dev.azurewebsites.net",
+            "type": "string"
+        },
+        {
+            "key": "nickFairleyFunctionKey",
+            "value": "",
+            "type": "string"
+        }
+    ]
+}
