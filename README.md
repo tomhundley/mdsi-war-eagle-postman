@@ -92,6 +92,45 @@ Purchase Order Receipt notification queue processor - processes PO receipt notif
 
 **Note:** Cam Newton's primary function is a Service Bus queue processor (not HTTP triggered), so it only exposes diagnostic endpoints.
 
+### Tre Mason (`TreMason.postman_collection.json`)
+
+Integration configuration service and Segra 3PL API sender - reads PO receipts from Service Bus and sends them to Segra's 3PL Experience API.
+
+**Endpoints:**
+- **Diagnostics:**
+  - `GET /api/diagnostics/heartbeat` - Health check
+  - `GET /api/diagnostics/version` - Get API version
+  - `GET /api/diagnostics/apiName` - Get API name
+  - `GET /api/diagnostics/exceptionTest` - Test exception handling
+  - `GET /api/diagnostics/customHttpStatus/{statusCode}/{message}` - Test custom HTTP status
+  - `POST /api/diagnostics/logTest` - Test logging functionality
+- **Segra API** (requires proxy):
+  - `GET https://api.ipify.org?format=json` - **Check Outbound IP (Proxy Test)** - Verify proxy is working
+  - `POST {{segra_token_url}}` - Get OAuth access token
+  - `GET {{segra_api_url}}/api/heartbeat` - Check Segra API health
+  - `POST {{segra_api_url}}/api/consignment` - Send PO receipt (consignment inventory)
+  - `POST {{segra_api_url}}/api/transferOrderShip` - Ship transfer order
+  - `POST {{segra_api_url}}/api/transferOrderAck` - Acknowledge transfer order
+  - `POST {{segra_api_url}}/api/ownershipChange` - Change inventory ownership
+
+**Important:** Segra API requests require:
+1. **Proxy running** (use `./scripts/proxy-control.sh <env>` from tre-mason project)
+2. **Postman proxy configured** in Settings → Proxy (localhost:8081/8082/8083)
+3. **Three headers per request** (except IP check):
+   - `Authorization: Bearer {{segra_bearer_token}}`
+   - `client_id: {{segra_client_id}}`
+   - `client_secret: {{segra_client_secret}}`
+
+**Testing Proxy Setup:**
+1. Run "Check Outbound IP" request first
+2. Check Postman Console for results:
+   - ✓ If IP matches expected: Proxy is working correctly
+   - ✗ If IP doesn't match: Check proxy is running and Postman proxy settings
+3. Expected IPs by environment:
+   - **DEV/Local**: 68.154.17.83
+   - **UAT**: 172.200.75.117
+   - **PRD**: 13.68.107.227
+
 ## Environment Variables Reference
 
 ### Local Environment
@@ -99,24 +138,56 @@ Purchase Order Receipt notification queue processor - processes PO receipt notif
 - `functionKey`: `na` (not required for local)
 - `camNewtonBaseUrl`: `http://localhost:7071`
 - `camNewtonFunctionKey`: `na` (not required for local)
+- `treMasonBaseUrl`: `http://localhost:7071`
+- `treMasonFunctionKey`: `na` (not required for local)
+- `proxy_port`: `8081` (DEV proxy)
+- `segra_token_url`: `https://sso.segra.com/as/token.oauth2`
+- `segra_api_url`: `https://esb-segra-east-non-prod-int-appgw.segra.com/green-3pl-exp-api`
+- `segra_client_id`: `[YOUR_SEGRA_CLIENT_ID]`
+- `segra_client_secret`: `[YOUR_SEGRA_CLIENT_SECRET]`
+- `segra_bearer_token`: Auto-populated
 
 ### Dev Environment
 - `baseUrl`: `https://func-bojackson-dev.azurewebsites.net`
 - `functionKey`: `[YOUR_DEV_BOJACKSON_FUNCTION_KEY]`
 - `camNewtonBaseUrl`: `https://func-camnewton-dev.azurewebsites.net`
 - `camNewtonFunctionKey`: `[YOUR_DEV_CAMNEWTON_FUNCTION_KEY]`
+- `treMasonBaseUrl`: `https://func-tremason-dev.azurewebsites.net`
+- `treMasonFunctionKey`: `[YOUR_DEV_TREMASON_FUNCTION_KEY]`
+- `proxy_port`: `8081` (Whitelisted IP: 68.154.17.83)
+- `segra_token_url`: `https://sso.segra.com/as/token.oauth2`
+- `segra_api_url`: `https://esb-segra-east-non-prod-int-appgw.segra.com/green-3pl-exp-api`
+- `segra_client_id`: `[YOUR_SEGRA_CLIENT_ID]`
+- `segra_client_secret`: `[YOUR_SEGRA_CLIENT_SECRET]`
+- `segra_bearer_token`: Auto-populated
 
 ### UAT Environment
 - `baseUrl`: `https://func-bojackson-uat.azurewebsites.net`
 - `functionKey`: `[YOUR_UAT_BOJACKSON_FUNCTION_KEY]`
 - `camNewtonBaseUrl`: `https://func-camnewton-uat.azurewebsites.net`
 - `camNewtonFunctionKey`: `[YOUR_UAT_CAMNEWTON_FUNCTION_KEY]`
+- `treMasonBaseUrl`: `https://func-tremason-uat.azurewebsites.net`
+- `treMasonFunctionKey`: `[YOUR_UAT_TREMASON_FUNCTION_KEY]`
+- `proxy_port`: `8082` (Whitelisted IP: 172.200.75.117)
+- `segra_token_url`: `https://sso.segra.com/as/token.oauth2`
+- `segra_api_url`: `https://esb-segra-east-non-prod-int-appgw.segra.com/yellow-3pl-exp-api`
+- `segra_client_id`: `[YOUR_SEGRA_CLIENT_ID]`
+- `segra_client_secret`: `[YOUR_SEGRA_CLIENT_SECRET]`
+- `segra_bearer_token`: Auto-populated
 
 ### Prd Environment
 - `baseUrl`: `https://func-bojackson-prd.azurewebsites.net`
 - `functionKey`: `[YOUR_PRD_BOJACKSON_FUNCTION_KEY]`
 - `camNewtonBaseUrl`: `https://func-camnewton-prd.azurewebsites.net`
 - `camNewtonFunctionKey`: `[YOUR_PRD_CAMNEWTON_FUNCTION_KEY]`
+- `treMasonBaseUrl`: `https://func-tremason-prd.azurewebsites.net`
+- `treMasonFunctionKey`: `[YOUR_PRD_TREMASON_FUNCTION_KEY]`
+- `proxy_port`: `8083` (Whitelisted IP: 13.68.107.227)
+- `segra_token_url`: `https://sso.segra.com/as/token.oauth2`
+- `segra_api_url`: `https://esb-segra-east-prod-int-appgw.segra.com/red-3pl-exp-api`
+- `segra_client_id`: `[YOUR_SEGRA_CLIENT_ID]`
+- `segra_client_secret`: `[YOUR_SEGRA_CLIENT_SECRET]`
+- `segra_bearer_token`: Auto-populated
 
 ### Global Environment
 - `accessToken`: Shared access tokens set dynamically
