@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "auburn-kickoff-collection-001",
-		"name": "FDD-2120 Transfer Order Notices: Auburn Kickoff - Trigger",
+		"name": "FDD-2120 -- Transfer Order Notices: Trigger (Auburn Kickoff)",
 		"description": "Postman collection for Auburn Kickoff Azure Function - HTTP trigger for Segra Transfer Orders. This is the first service in the War Eagle FDD-2120 microservices architecture.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

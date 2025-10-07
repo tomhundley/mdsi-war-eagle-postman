@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "derrick-brown-collection-001",
-		"name": "FDD-2119 PO Receipts: Derrick Brown - Failure Handler",
+		"name": "FDD-2119 -- PO Receipts: Failure Handler (Derrick Brown)",
 		"description": "Postman collection for Derrick Brown Azure Function App - Failure handler service for purchase order receipt integration failures",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

@@ -1,7 +1,7 @@
 {
     "info": {
         "_postman_id": "nick-fairley-collection-001",
-        "name": "FDD-2119 PO Receipts: Nick Fairley - Success Handler",
+        "name": "FDD-2119 -- PO Receipts: Success Handler (Nick Fairley)",
         "description": "Diagnostics endpoints for the Nick Fairley success handler Azure Functions app.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
