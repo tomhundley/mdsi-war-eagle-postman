@@ -58,7 +58,7 @@
 					"response": []
 				},
 				{
-					"name": "Version",
+					"name": "Version (simple)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -71,37 +71,62 @@
 									"key": "code",
 									"value": "{{functionKey}}",
 									"description": "Function authorization key"
-								},
-								{
-									"key": "includeApiName",
-									"value": "false",
-									"description": "Set to true to include API name in response",
-									"disabled": true
 								}
 							]
 						},
-						"description": "Returns the application version. Add query param includeApiName=true to include the API name"
+						"description": "Returns just the application version number (e.g., '1.0.42.0')"
 					},
 					"response": []
 				},
 				{
-					"name": "API Name",
+					"name": "Version (with name)",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/apiName?code={{functionKey}}",
+							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&includeApiName=true",
 							"host": ["{{baseUrl}}"],
-							"path": ["api", "diagnostics", "apiName"],
+							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
 									"value": "{{functionKey}}",
 									"description": "Function authorization key"
+								},
+								{
+									"key": "includeApiName",
+									"value": "true",
+									"description": "Include API name in response"
 								}
 							]
 						},
-						"description": "Returns the application name"
+						"description": "Returns the application name and version (e.g., 'bo-jackson v1.0.42.0')"
+					},
+					"response": []
+				},
+				{
+					"name": "Version (detailed)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&format=detailed",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "version"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								},
+								{
+									"key": "format",
+									"value": "detailed",
+									"description": "Return comprehensive version information including commit SHA, build timestamp, etc."
+								}
+							]
+						},
+						"description": "Returns comprehensive version information including commit SHA, commit message, build timestamp, build ID, builder, repository, workflow URL, and package SHA256"
 					},
 					"response": []
 				},
@@ -174,6 +199,48 @@
 							]
 						},
 						"description": "Tests logging functionality. Send a POST request with JSON body containing a message property"
+					},
+					"response": []
+				},
+				{
+					"name": "Service Bus Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to the Tiger Transit Service Bus. Returns connection status, topic information, and message counts"
+					},
+					"response": []
+				},
+				{
+					"name": "Cosmos DB Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/cosmosDbConnectivityTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "cosmosDbConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to the Jordan Hare Stadium Cosmos DB database and containers (Heisman Legends and Samford Hall). Returns connection status, database name, container information, and partition key paths"
 					},
 					"response": []
 				}
