@@ -92,7 +92,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"transferOrderNumber\": \"TO-2025-001234\",\n  \"customerReferenceNumber\": \"SEG-REF-12345\",\n  \"deliveryModeCode\": \"Standard\",\n  \"requestedDeliveryDate\": \"2025-01-15T00:00:00Z\",\n  \"installationAddressLocationCode\": \"ML-ATL-01\",\n  \"destinationAddressLocationCode\": \"ML-ATL-01\",\n  \"contact\": {\n    \"name\": \"John Smith\",\n    \"email\": \"john.smith@segra.com\",\n    \"phone\": \"+1-555-123-4567\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 10\n    },\n    {\n      \"lineNumber\": 2,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 2\n    }\n  ]\n}",
+							"raw": "{\n  \"transferOrderNumber\": \"TO-2025-001234\",\n  \"deliveryModeCode\": \"Standard\",\n  \"requestedDeliveryDate\": \"2025-01-15T00:00:00Z\",\n  \"installationAddressLocationCode\": \"1200Greenbrier\",\n  \"destinationAddressLocationCode\": \"500Summers\",\n  \"contact\": {\n    \"name\": \"John Smith\",\n    \"email\": \"john.smith@segra.com\",\n    \"phone\": \"+1-555-123-4567\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 10\n    },\n    {\n      \"lineNumber\": 2,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 2\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -100,18 +100,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders?divisionErpId={{divisionErpId}}",
+							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders",
 							"host": ["{{auburnKickoffBaseUrl}}"],
-							"path": ["api", "transferOrders"],
-							"query": [
-								{
-									"key": "divisionErpId",
-									"value": "{{divisionErpId}}",
-									"description": "Division ERP ID (SEGR001, SEGR002, or SEGR005)"
-								}
-							]
+							"path": ["api", "transferOrders"]
 						},
-						"description": "Submit a Transfer Order to Auburn Kickoff. This endpoint authenticates via Auth0, logs the payload to CosmosDB, and publishes to Service Bus.\n\n**Test Data:**\n- itemNumber: PHNAVAIP9608G → Product: 700507946 (IP TELEPHONE 9608G GRAY GIGABIT ETHERNET)\n- itemNumber: 705180505 → Product: NC-55-32T16Q4H-AT (Cisco NCS 5500 Series 48-port line card)\n\n**Response:** HTTP 202 Accepted with correlation ID\n\n**CosmosDB Audit:** Logs to war-eagle-db-01/kick-six-express (partition key: customerReferenceNumber)"
+						"description": "Submit a Transfer Order to Auburn Kickoff. This endpoint authenticates via Auth0, logs the payload to CosmosDB, and publishes to Service Bus.\n\n**Test Data:**\n- itemNumber: PHNAVAIP9608G → Product: 700507946 (IP TELEPHONE 9608G GRAY GIGABIT ETHERNET)\n- itemNumber: 705180505 → Product: NC-55-32T16Q4H-AT (Cisco NCS 5500 Series 48-port line card)\n\n**Response:** HTTP 200 OK with acceptance message, transferOrderNumber, and correlationId\n\n**CosmosDB Audit:** Logs to war-eagle-db-01/kick-six-express"
 					},
 					"response": []
 				},
@@ -133,7 +126,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"transferOrderNumber\": \"TO-2025-{{$randomInt}}\",\n  \"customerReferenceNumber\": \"SEG-REF-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Expedited\",\n  \"requestedDeliveryDate\": \"{{$isoTimestamp}}\",\n  \"installationAddressLocationCode\": \"ML-ATL-01\",\n  \"destinationAddressLocationCode\": \"ML-ATL-01\",\n  \"contact\": {\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"test@segra.com\",\n    \"phone\": \"+1-555-{{$randomInt}}\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 25\n    },\n    {\n      \"lineNumber\": 2,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 5\n    }\n  ]\n}",
+							"raw": "{\n  \"transferOrderNumber\": \"TO-2025-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Expedited\",\n  \"requestedDeliveryDate\": \"{{$isoTimestamp}}\",\n  \"installationAddressLocationCode\": \"1200Greenbrier\",\n  \"destinationAddressLocationCode\": \"500Summers\",\n  \"contact\": {\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"test@segra.com\",\n    \"phone\": \"+1-555-{{$randomInt}}\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 25\n    },\n    {\n      \"lineNumber\": 2,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 5\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -141,23 +134,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders?divisionErpId={{divisionErpId}}",
+							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders",
 							"host": ["{{auburnKickoffBaseUrl}}"],
-							"path": ["api", "transferOrders"],
-							"query": [
-								{
-									"key": "divisionErpId",
-									"value": "{{divisionErpId}}",
-									"description": "Division ERP ID (SEGR001, SEGR002, or SEGR005)"
-								}
-							]
+							"path": ["api", "transferOrders"]
 						},
 						"description": "Submit a Transfer Order with dynamic test data using Postman variables.\n\n**Uses Postman Dynamic Variables:**\n- $randomInt: Random integer for unique reference numbers\n- $randomFullName: Random contact name\n- $isoTimestamp: Current timestamp in ISO format"
 					},
 					"response": []
 				},
 				{
-					"name": "Submit Transfer Order - Division SEGR001",
+					"name": "Submit Transfer Order - SEGR003 (via env var)",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -174,7 +160,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"transferOrderNumber\": \"TO-SEGR001-{{$randomInt}}\",\n  \"customerReferenceNumber\": \"SEGR001-REF-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Standard\",\n  \"requestedDeliveryDate\": \"2025-02-01T00:00:00Z\",\n  \"installationAddressLocationCode\": \"ML-ATL-01\",\n  \"destinationAddressLocationCode\": \"ML-ATL-01\",\n  \"contact\": {\n    \"name\": \"Division Test User\",\n    \"email\": \"divtest@segra.com\",\n    \"phone\": \"+1-555-000-0001\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 15\n    }\n  ]\n}",
+							"raw": "{\n  \"transferOrderNumber\": \"TO-SEGR003-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Standard\",\n  \"requestedDeliveryDate\": \"2025-02-01T00:00:00Z\",\n  \"installationAddressLocationCode\": \"1200Greenbrier\",\n  \"destinationAddressLocationCode\": \"500Summers\",\n  \"contact\": {\n    \"name\": \"Division Test User\",\n    \"email\": \"divtest@segra.com\",\n    \"phone\": \"+1-555-000-0001\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 15\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -182,23 +168,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders?divisionErpId=SEGR001",
+							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders",
 							"host": ["{{auburnKickoffBaseUrl}}"],
-							"path": ["api", "transferOrders"],
-							"query": [
-								{
-									"key": "divisionErpId",
-									"value": "SEGR001",
-									"description": "Division SEGR001 (hardcoded)"
-								}
-							]
+							"path": ["api", "transferOrders"]
 						},
-						"description": "Submit Transfer Order for Division SEGR001 specifically"
+						"description": "Submit Transfer Order (divisionErpId is now set to SEGR003 via environment variable)"
 					},
 					"response": []
 				},
 				{
-					"name": "Submit Transfer Order - Division SEGR002",
+					"name": "Submit Transfer Order - Alternative Test Data",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -215,7 +194,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"transferOrderNumber\": \"TO-SEGR002-{{$randomInt}}\",\n  \"customerReferenceNumber\": \"SEGR002-REF-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Expedited\",\n  \"requestedDeliveryDate\": \"2025-02-05T00:00:00Z\",\n  \"installationAddressLocationCode\": \"ML-NYC-01\",\n  \"destinationAddressLocationCode\": \"ML-NYC-01\",\n  \"contact\": {\n    \"name\": \"Division Test User\",\n    \"email\": \"divtest@segra.com\",\n    \"phone\": \"+1-555-000-0002\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 3\n    }\n  ]\n}",
+							"raw": "{\n  \"transferOrderNumber\": \"TO-SEGR003-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Expedited\",\n  \"requestedDeliveryDate\": \"2025-02-05T00:00:00Z\",\n  \"installationAddressLocationCode\": \"500Summers\",\n  \"destinationAddressLocationCode\": \"1200Greenbrier\",\n  \"contact\": {\n    \"name\": \"Division Test User\",\n    \"email\": \"divtest@segra.com\",\n    \"phone\": \"+1-555-000-0002\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 3\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -223,18 +202,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders?divisionErpId=SEGR002",
+							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders",
 							"host": ["{{auburnKickoffBaseUrl}}"],
-							"path": ["api", "transferOrders"],
-							"query": [
-								{
-									"key": "divisionErpId",
-									"value": "SEGR002",
-									"description": "Division SEGR002 (hardcoded)"
-								}
-							]
+							"path": ["api", "transferOrders"]
 						},
-						"description": "Submit Transfer Order for Division SEGR002 specifically"
+						"description": "Submit Transfer Order (divisionErpId is now set to SEGR003 via environment variable)"
 					},
 					"response": []
 				}
@@ -289,17 +261,23 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"// Validate 202 Accepted response",
-					"pm.test('Status code is 202 Accepted', function () {",
-					"    pm.response.to.have.status(202);",
+					"// Validate 200 OK response",
+					"pm.test('Status code is 200 OK', function () {",
+					"    pm.response.to.have.status(200);",
 					"});",
 					"",
-					"// Extract and save correlation ID",
-					"if (pm.response.code === 202) {",
+					"// Extract and save correlation ID and transfer order number",
+					"if (pm.response.code === 200) {",
 					"    const jsonData = pm.response.json();",
 					"    if (jsonData.correlationId) {",
 					"        pm.environment.set('last_correlation_id', jsonData.correlationId);",
 					"        console.log('Correlation ID:', jsonData.correlationId);",
+					"    }",
+					"    if (jsonData.transferOrderNumber) {",
+					"        console.log('Transfer Order Number:', jsonData.transferOrderNumber);",
+					"    }",
+					"    if (jsonData.message) {",
+					"        console.log('Message:', jsonData.message);",
 					"    }",
 					"}"
 				]
