@@ -1,0 +1,202 @@
+{
+  "id": "war-eagle-uat-env-001",
+  "name": "War Eagle - UAT",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "https://func-wareagle-bo-jackson-v1-0-eus-uat.azurewebsites.net",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "functionKey",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "camNewtonBaseUrl",
+      "value": "https://func-wareagle-cam-newton-v1-0-eus-uat.azurewebsites.net",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "camNewtonFunctionKey",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "treMasonBaseUrl",
+      "value": "https://func-wareagle-tre-mason-v1-0-eus-uat.azurewebsites.net",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "treMasonFunctionKey",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "auburnKickoffBaseUrl",
+      "value": "https://func-wareagle-auburn-kickoff-v1-0-eus-uat.azurewebsites.net",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "auburnKickoffFunctionKey",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "divisionErpId",
+      "value": "SEGR001",
+      "type": "default",
+      "enabled": true,
+      "description": "Default Division ERP ID (SEGR001, SEGR002, or SEGR005)"
+    },
+    {
+      "key": "auth0_token_url",
+      "value": "https://mdsi-cloud-city-uat.auth0.com/oauth/token",
+      "type": "default",
+      "enabled": true,
+      "description": "Auth0 token endpoint URL (MDSi Cloud City UAT)"
+    },
+    {
+      "key": "auth0_audience",
+      "value": "https://segra-integration-uat.mdsiinc.com",
+      "type": "default",
+      "enabled": true,
+      "description": "Auth0 API audience (UAT)"
+    },
+    {
+      "key": "auth0_client_id",
+      "value": "9oESM6FwXIS6epdYVi2KiQxohLoe4vUx",
+      "type": "default",
+      "enabled": true,
+      "description": "Auth0 OAuth client ID (UAT)"
+    },
+    {
+      "key": "auth0_client_secret",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true,
+      "description": "Auth0 OAuth client secret for machine-to-machine authentication (UAT)"
+    },
+    {
+      "key": "auth0_bearer_token",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true,
+      "description": "Auth0 bearer token for API authentication (auto-populated by 'Get Auth0 Token' request)"
+    },
+    {
+      "key": "last_correlation_id",
+      "value": "",
+      "type": "default",
+      "enabled": true,
+      "description": "Last correlation ID from Auburn Kickoff response"
+    },
+    {
+      "key": "environment",
+      "value": "uat",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "proxy_port",
+      "value": "8082",
+      "type": "default",
+      "enabled": true,
+      "description": "Local proxy port for UAT environment (whitelisted IP: 172.200.75.117)"
+    },
+    {
+      "key": "segra_token_url",
+      "value": "https://sso.segra.com/as/token.oauth2",
+      "type": "default",
+      "enabled": true,
+      "description": "Segra OAuth token endpoint"
+    },
+    {
+      "key": "segra_api_url",
+      "value": "https://esb-segra-east-non-prod-int-appgw.segra.com/yellow-3pl-exp-api",
+      "type": "default",
+      "enabled": true,
+      "description": "Segra 3PL API base URL (yellow = UAT)"
+    },
+    {
+      "key": "segra_client_id",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true,
+      "description": "Segra OAuth client ID (see config_samples)"
+    },
+    {
+      "key": "segra_client_secret",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true,
+      "description": "Segra OAuth client secret (see config_samples)"
+    },
+    {
+      "key": "segra_bearer_token",
+      "value": "",
+      "type": "default",
+      "enabled": true,
+      "description": "Auto-populated by pre-request script"
+    },
+    {
+      "key": "nickFairleyBaseUrl",
+      "value": "https://func-wareagle-nick-fairley-v1-0-eus-uat.azurewebsites.net",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "nickFairleyFunctionKey",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "derrickBrownBaseUrl",
+      "value": "https://func-wareagle-derrick-brown-v1-0-eus-uat.azurewebsites.net",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "derrickBrownFunctionKey",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "warEagleSpiritBaseUrl",
+      "value": "https://func-wareagle-war-eagle-spirit-v1-0-eus-uat.azurewebsites.net",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "warEagleSpiritFunctionKey",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "auburnThunderBaseUrl",
+      "value": "https://func-wareagle-auburn-thunder-v1-0-eus-uat.azurewebsites.net",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "auburnThunderFunctionKey",
+      "value": "YOUR_SECRET_HERE",
+      "type": "secret",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2025-10-03T00:00:00.000Z",
+  "_postman_exported_using": "Claude Code"
+}
