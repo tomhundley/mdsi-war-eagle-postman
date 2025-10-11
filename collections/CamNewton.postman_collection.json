@@ -149,6 +149,48 @@
 						"description": "Tests logging functionality. Send a POST request with JSON body containing a message property"
 					},
 					"response": []
+				},
+				{
+					"name": "Service Bus Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{camNewtonFunctionKey}}",
+							"host": ["{{camNewtonBaseUrl}}"],
+							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{camNewtonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to the Tiger Transit Service Bus. Validates connection string and subscription configuration. Returns status, topic/subscription names, and success message."
+					},
+					"response": []
+				},
+				{
+					"name": "D365 Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/d365ConnectivityTest?code={{camNewtonFunctionKey}}",
+							"host": ["{{camNewtonBaseUrl}}"],
+							"path": ["api", "diagnostics", "d365ConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{camNewtonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to Dynamics 365 (D365). Validates OAuth token acquisition from Azure AD and verifies API connectivity with a metadata request. Returns connection status, D365 resource URL, token URL, client ID, and success message."
+					},
+					"response": []
 				}
 			],
 			"description": "Diagnostic and health check endpoints for monitoring and testing the Cam Newton function app"
