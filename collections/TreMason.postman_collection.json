@@ -149,6 +149,69 @@
 						"description": "Tests logging functionality. Send a POST request with JSON body containing a message property"
 					},
 					"response": []
+				},
+				{
+					"name": "Service Bus Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{treMasonBaseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{treMasonFunctionKey}}",
+							"host": ["{{treMasonBaseUrl}}"],
+							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{treMasonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to Tiger Transit Service Bus topics (ready-for-integration, success, failed)"
+					},
+					"response": []
+				},
+				{
+					"name": "Cosmos DB Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{treMasonBaseUrl}}/api/diagnostics/cosmosDbConnectivityTest?code={{treMasonFunctionKey}}",
+							"host": ["{{treMasonBaseUrl}}"],
+							"path": ["api", "diagnostics", "cosmosDbConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{treMasonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to Jordan Hare Stadium Cosmos DB (Heisman Legends and Samford Hall containers)"
+					},
+					"response": []
+				},
+				{
+					"name": "Segra API Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{treMasonBaseUrl}}/api/diagnostics/segraApiConnectivityTest?code={{treMasonFunctionKey}}",
+							"host": ["{{treMasonBaseUrl}}"],
+							"path": ["api", "diagnostics", "segraApiConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{treMasonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to Segra API by calling their heartbeat endpoint"
+					},
+					"response": []
 				}
 			],
 			"description": "Diagnostic and health check endpoints for monitoring and testing the Tre Mason function app"
