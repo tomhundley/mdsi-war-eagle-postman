@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "bo-jackson-collection-001",
 		"name": "FDD-2119 -- PO Receipts: Trigger (Bo Jackson)",
-		"description": "Postman collection for Bo Jackson Azure Function App - Purchase Order Receipt integration service with D365",
+		"description": "Postman collection for Bo Jackson Azure Function App - Purchase Order Receipt integration service with D365. Version is managed by scripts/build/build.sh using semantic versioning (0.1.N auto-increment).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -58,7 +58,7 @@
 					"response": []
 				},
 				{
-					"name": "Version (simple)",
+					"name": "Version (Full JSON)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -74,12 +74,64 @@
 								}
 							]
 						},
-						"description": "Returns just the application version number (e.g., '1.0.42.0')"
+						"description": "Returns comprehensive version information as JSON object including version, environment, build timestamp, and runtime details. Version is set by the build script (scripts/build/build.sh) using semantic versioning (e.g., 0.1.5)"
 					},
 					"response": []
 				},
 				{
-					"name": "Version (with name)",
+					"name": "Version (Simple String)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&format=simple",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "version"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								},
+								{
+									"key": "format",
+									"value": "simple",
+									"description": "Returns simple string format"
+								}
+							]
+						},
+						"description": "Returns the application name and version as a simple string (e.g., 'bo-jackson-dev v0.1.5')"
+					},
+					"response": []
+				},
+				{
+					"name": "Version (Number Only)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&format=version",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "version"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								},
+								{
+									"key": "format",
+									"value": "version",
+									"description": "Returns version number only"
+								}
+							]
+						},
+						"description": "Returns just the version number as a string (e.g., '0.1.5')"
+					},
+					"response": []
+				},
+				{
+					"name": "Version (Legacy - with API name)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -96,37 +148,11 @@
 								{
 									"key": "includeApiName",
 									"value": "true",
-									"description": "Include API name in response"
+									"description": "Legacy parameter - use format=simple instead"
 								}
 							]
 						},
-						"description": "Returns the application name and version (e.g., 'bo-jackson v1.0.42.0')"
-					},
-					"response": []
-				},
-				{
-					"name": "Version (detailed)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&format=detailed",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "diagnostics", "version"],
-							"query": [
-								{
-									"key": "code",
-									"value": "{{functionKey}}",
-									"description": "Function authorization key"
-								},
-								{
-									"key": "format",
-									"value": "detailed",
-									"description": "Return comprehensive version information including commit SHA, build timestamp, etc."
-								}
-							]
-						},
-						"description": "Returns comprehensive version information including commit SHA, commit message, build timestamp, build ID, builder, repository, workflow URL, and package SHA256"
+						"description": "Legacy endpoint - Returns the application name and version. Maintained for backward compatibility. Use 'format=simple' instead."
 					},
 					"response": []
 				},
@@ -219,7 +245,7 @@
 								}
 							]
 						},
-						"description": "Tests connectivity to the Tiger Transit Service Bus. Returns connection status, topic information, and message counts"
+						"description": "Tests connectivity to the Tiger Transit Service Bus. Validates connection string and topic configuration. Returns status, topic name, and success message."
 					},
 					"response": []
 				},
@@ -245,7 +271,7 @@
 					"response": []
 				}
 			],
-			"description": "Diagnostic and health check endpoints for monitoring and testing the Bo Jackson function app"
+			"description": "Diagnostic and health check endpoints for monitoring and testing the Bo Jackson function app. Version information comes from assembly metadata set during build (scripts/build/build.sh)."
 		}
 	],
 	"event": [
