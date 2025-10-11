@@ -269,6 +269,27 @@
 						"description": "Tests connectivity to the Jordan Hare Stadium Cosmos DB database and containers (Heisman Legends and Samford Hall). Returns connection status, database name, container information, and partition key paths"
 					},
 					"response": []
+				},
+				{
+					"name": "D365 Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/d365ConnectivityTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "d365ConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to Dynamics 365 (D365). Validates OAuth token acquisition from Azure AD and verifies API connectivity with a metadata request. Returns connection status, D365 resource URL, token URL, client ID, and success message."
+					},
+					"response": []
 				}
 			],
 			"description": "Diagnostic and health check endpoints for monitoring and testing the Bo Jackson function app. Version information comes from assembly metadata set during build (scripts/build/build.sh)."
