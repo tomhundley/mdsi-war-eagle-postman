@@ -1,6 +1,6 @@
-# Postman environment files (contain secrets - use .example files instead)
+# Postman environment files (contain secrets)
 environments/*.postman_environment.json
-!environments/*.example.json
+environments/*.example.json
 
 # Postman local environment files (may contain secrets)
 **/local.*.json
