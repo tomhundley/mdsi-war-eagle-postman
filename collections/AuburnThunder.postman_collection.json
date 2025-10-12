@@ -128,6 +128,48 @@
 						"description": "Tests the logging configuration by sending a test message to the logger"
 					},
 					"response": []
+				},
+				{
+					"name": "Service Bus Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{auburnThunderFunctionKey}}",
+							"host": ["{{auburnThunderBaseUrl}}"],
+							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{auburnThunderFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to the Tiger Transit Service Bus topic subscription used for notifications"
+					},
+					"response": []
+				},
+				{
+					"name": "Slack Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/slackConnectivityTest?code={{auburnThunderFunctionKey}}",
+							"host": ["{{auburnThunderBaseUrl}}"],
+							"path": ["api", "diagnostics", "slackConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{auburnThunderFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to all configured Slack webhooks (success, technical failures, and business failures)"
+					},
+					"response": []
 				}
 			],
 			"description": "Diagnostic endpoints for testing and monitoring the Auburn Thunder Slack notification handler"
