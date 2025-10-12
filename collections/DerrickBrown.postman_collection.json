@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "derrick-brown-collection-001",
 		"name": "FDD-2119 -- PO Receipts: Failure Handler (Derrick Brown)",
-		"description": "Postman collection for Derrick Brown Azure Function App - Failure handler service for purchase order receipt integration failures",
+		"description": "Postman collection for Derrick Brown Azure Function App - Failure handler service for purchase order receipt integration failures. Version is managed by scripts/build/build.sh using semantic versioning (0.1.N auto-increment).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -31,7 +31,7 @@
 					"response": []
 				},
 				{
-					"name": "Version",
+					"name": "Version (Full JSON)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -44,16 +44,62 @@
 									"key": "code",
 									"value": "{{derrickBrownFunctionKey}}",
 									"description": "Function authorization key"
-								},
-								{
-									"key": "includeApiName",
-									"value": "false",
-									"description": "Set to true to include API name in response",
-									"disabled": true
 								}
 							]
 						},
-						"description": "Returns the application version. Add query param includeApiName=true to include the API name"
+						"description": "Returns comprehensive version information as JSON object including version, environment, build timestamp, and runtime details. Version is set by the build script (scripts/build/build.sh) using semantic versioning (e.g., 0.1.5)"
+					},
+					"response": []
+				},
+				{
+					"name": "Version (Simple String)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{derrickBrownBaseUrl}}/api/diagnostics/version?code={{derrickBrownFunctionKey}}&format=simple",
+							"host": ["{{derrickBrownBaseUrl}}"],
+							"path": ["api", "diagnostics", "version"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{derrickBrownFunctionKey}}",
+									"description": "Function authorization key"
+								},
+								{
+									"key": "format",
+									"value": "simple",
+									"description": "Returns simple string format"
+								}
+							]
+						},
+						"description": "Returns the application name and version as a simple string (e.g., 'derrick-brown-dev v0.1.5')"
+					},
+					"response": []
+				},
+				{
+					"name": "Version (Number Only)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{derrickBrownBaseUrl}}/api/diagnostics/version?code={{derrickBrownFunctionKey}}&format=version",
+							"host": ["{{derrickBrownBaseUrl}}"],
+							"path": ["api", "diagnostics", "version"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{derrickBrownFunctionKey}}",
+									"description": "Function authorization key"
+								},
+								{
+									"key": "format",
+									"value": "version",
+									"description": "Returns version number only"
+								}
+							]
+						},
+						"description": "Returns just the version number as a string (e.g., '0.1.5')"
 					},
 					"response": []
 				},
@@ -125,12 +171,65 @@
 								}
 							]
 						},
-						"description": "Tests the logging configuration by sending a test message to the logger"
+						"description": "Tests logging functionality. Send a POST request with JSON body containing a message property"
+					},
+					"response": []
+				},
+				{
+					"name": "Service Bus Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{derrickBrownBaseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{derrickBrownFunctionKey}}",
+							"host": ["{{derrickBrownBaseUrl}}"],
+							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{derrickBrownFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to the Tiger Transit Service Bus. Validates connection string and topic configuration (notifications and failed integration topics). Returns status, namespace, topic names, and success message."
 					},
 					"response": []
 				}
 			],
-			"description": "Diagnostic endpoints for testing and monitoring the Derrick Brown failure handler"
+			"description": "Diagnostic and health check endpoints for monitoring and testing the Derrick Brown failure handler function app. Version information comes from assembly metadata set during build (scripts/build/build.sh)."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "derrickBrownBaseUrl",
+			"value": "https://func-wareagle-derrick-brown-v1-0-eus-dev.azurewebsites.net",
+			"type": "string"
+		},
+		{
+			"key": "derrickBrownFunctionKey",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
