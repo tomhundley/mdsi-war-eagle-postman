@@ -2,7 +2,7 @@
     "info": {
         "_postman_id": "nick-fairley-collection-001",
         "name": "FDD-2119 -- PO Receipts: Success Handler (Nick Fairley)",
-        "description": "Diagnostics endpoints for the Nick Fairley success handler Azure Functions app.",
+        "description": "Postman collection for Nick Fairley Azure Function App - Success handler service for purchase order receipt integration successes. Version is managed by scripts/build/build.sh using semantic versioning (0.1.N auto-increment).",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
@@ -31,17 +31,45 @@
                                     "description": "Function authorization key"
                                 }
                             ]
-                        }
+                        },
+                        "description": "Health check endpoint - returns HTTP 200 if the function app is running"
                     },
                     "response": []
                 },
                 {
-                    "name": "Version",
+                    "name": "Version (Full JSON)",
                     "request": {
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{nickFairleyBaseUrl}}/api/diagnostics/version?code={{nickFairleyFunctionKey}}&includeApiName={{includeApiName}}",
+                            "raw": "{{nickFairleyBaseUrl}}/api/diagnostics/version?code={{nickFairleyFunctionKey}}",
+                            "host": [
+                                "{{nickFairleyBaseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "diagnostics",
+                                "version"
+                            ],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "{{nickFairleyFunctionKey}}",
+                                    "description": "Function authorization key"
+                                }
+                            ]
+                        },
+                        "description": "Returns comprehensive version information as JSON object including version, environment, build timestamp, and runtime details. Version is set by the build script (scripts/build/build.sh) using semantic versioning (e.g., 0.1.5)"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Version (Simple String)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{nickFairleyBaseUrl}}/api/diagnostics/version?code={{nickFairleyFunctionKey}}&format=simple",
                             "host": [
                                 "{{nickFairleyBaseUrl}}"
                             ],
@@ -57,13 +85,45 @@
                                     "description": "Function authorization key"
                                 },
                                 {
-                                    "key": "includeApiName",
-                                    "value": "false",
-                                    "description": "Set to true to include API name in response",
-                                    "disabled": true
+                                    "key": "format",
+                                    "value": "simple",
+                                    "description": "Returns simple string format"
                                 }
                             ]
-                        }
+                        },
+                        "description": "Returns the application name and version as a simple string (e.g., 'nick-fairley-dev v0.1.5')"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Version (Number Only)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{nickFairleyBaseUrl}}/api/diagnostics/version?code={{nickFairleyFunctionKey}}&format=version",
+                            "host": [
+                                "{{nickFairleyBaseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "diagnostics",
+                                "version"
+                            ],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "{{nickFairleyFunctionKey}}",
+                                    "description": "Function authorization key"
+                                },
+                                {
+                                    "key": "format",
+                                    "value": "version",
+                                    "description": "Returns version number only"
+                                }
+                            ]
+                        },
+                        "description": "Returns just the version number as a string (e.g., '0.1.5')"
                     },
                     "response": []
                 },
@@ -89,7 +149,8 @@
                                     "description": "Function authorization key"
                                 }
                             ]
-                        }
+                        },
+                        "description": "Returns the application name"
                     },
                     "response": []
                 },
@@ -115,7 +176,8 @@
                                     "description": "Function authorization key"
                                 }
                             ]
-                        }
+                        },
+                        "description": "Triggers a test exception to validate exception handling and logging"
                     },
                     "response": []
                 },
@@ -150,18 +212,66 @@
                                     "description": "Function authorization key"
                                 }
                             ]
-                        }
+                        },
+                        "description": "Tests logging functionality. Send a POST request with JSON body containing a message property"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Service Bus Connectivity Test",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{nickFairleyBaseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{nickFairleyFunctionKey}}",
+                            "host": [
+                                "{{nickFairleyBaseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "diagnostics",
+                                "serviceBusConnectivityTest"
+                            ],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "{{nickFairleyFunctionKey}}",
+                                    "description": "Function authorization key"
+                                }
+                            ]
+                        },
+                        "description": "Tests connectivity to the Tiger Transit Service Bus. Validates connection string, topic configuration (notifications and successful integration), and subscription. Returns status, namespace, topic names, subscription, and success message."
                     },
                     "response": []
                 }
             ],
-            "description": "Diagnostics endpoints exposed by the Nick Fairley Azure Functions app."
+            "description": "Diagnostic and health check endpoints for monitoring and testing the Nick Fairley success handler function app. Version information comes from assembly metadata set during build (scripts/build/build.sh)."
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
         }
     ],
     "variable": [
         {
             "key": "nickFairleyBaseUrl",
-            "value": "https://func-nickfairley-dev.azurewebsites.net",
+            "value": "https://func-wareagle-nick-fairley-v1-0-eus-dev.azurewebsites.net",
             "type": "string"
         },
         {
