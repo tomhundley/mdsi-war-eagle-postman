@@ -191,6 +191,48 @@
 						"description": "Tests connectivity to Dynamics 365 (D365). Validates OAuth token acquisition from Azure AD and verifies API connectivity with a metadata request. Returns connection status, D365 resource URL, token URL, client ID, and success message."
 					},
 					"response": []
+				},
+				{
+					"name": "Jordan Hare Stadium Cosmos DB Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/jordanHareStadiumConnectivityTest?code={{camNewtonFunctionKey}}",
+							"host": ["{{camNewtonBaseUrl}}"],
+							"path": ["api", "diagnostics", "jordanHareStadiumConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{camNewtonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to the Jordan Hare Stadium Cosmos DB database and containers. Validates database connectivity and verifies access to heisman-legends and samford-hall containers. Returns connection status, database name, base URL, container details with partition key paths."
+					},
+					"response": []
+				},
+				{
+					"name": "Forgetful Jones Cosmos DB Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{camNewtonBaseUrl}}/api/diagnostics/forgetfulJonesConnectivityTest?code={{camNewtonFunctionKey}}",
+							"host": ["{{camNewtonBaseUrl}}"],
+							"path": ["api", "diagnostics", "forgetfulJonesConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{camNewtonFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to the Forgetful Jones Cosmos DB database and containers. Validates database connectivity and verifies access to abby-cadabby, flo-bear, and julia containers. Returns connection status, database name, base URL, container details with partition key paths."
+					},
+					"response": []
 				}
 			],
 			"description": "Diagnostic and health check endpoints for monitoring and testing the Cam Newton function app"
