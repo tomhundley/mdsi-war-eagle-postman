@@ -170,6 +170,84 @@
 						"description": "Tests connectivity to SendGrid email service and validates API key configuration (uses sandbox mode - no emails sent)"
 					},
 					"response": []
+				},
+				{
+					"name": "Send Test Email - Successful",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{warEagleSpiritBaseUrl}}/api/diagnostics/sendTestEmail?code={{warEagleSpiritFunctionKey}}&type=successful",
+							"host": ["{{warEagleSpiritBaseUrl}}"],
+							"path": ["api", "diagnostics", "sendTestEmail"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{warEagleSpiritFunctionKey}}",
+									"description": "Function authorization key"
+								},
+								{
+									"key": "type",
+									"value": "successful",
+									"description": "Email type: successful, business-failure, or technical-failure"
+								}
+							]
+						},
+						"description": "Sends a real test email to verify email configuration and distribution lists. Returns JSON with distro, subject, and email details. Type: successful integration notification."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Test Email - Business Failure",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{warEagleSpiritBaseUrl}}/api/diagnostics/sendTestEmail?code={{warEagleSpiritFunctionKey}}&type=business-failure",
+							"host": ["{{warEagleSpiritBaseUrl}}"],
+							"path": ["api", "diagnostics", "sendTestEmail"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{warEagleSpiritFunctionKey}}",
+									"description": "Function authorization key"
+								},
+								{
+									"key": "type",
+									"value": "business-failure",
+									"description": "Email type: successful, business-failure, or technical-failure"
+								}
+							]
+						},
+						"description": "Sends a real test email to verify email configuration and distribution lists. Returns JSON with distro, subject, and email details. Type: business failure notification."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Test Email - Technical Failure",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{warEagleSpiritBaseUrl}}/api/diagnostics/sendTestEmail?code={{warEagleSpiritFunctionKey}}&type=technical-failure",
+							"host": ["{{warEagleSpiritBaseUrl}}"],
+							"path": ["api", "diagnostics", "sendTestEmail"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{warEagleSpiritFunctionKey}}",
+									"description": "Function authorization key"
+								},
+								{
+									"key": "type",
+									"value": "technical-failure",
+									"description": "Email type: successful, business-failure, or technical-failure"
+								}
+							]
+						},
+						"description": "Sends a real test email to verify email configuration and distribution lists. Returns JSON with distro, subject, and email details. Type: technical failure notification."
+					},
+					"response": []
 				}
 			],
 			"description": "Diagnostic endpoints for testing and monitoring the War Eagle Spirit email handler"
