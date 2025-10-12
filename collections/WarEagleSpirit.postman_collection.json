@@ -128,6 +128,48 @@
 						"description": "Tests the logging configuration by sending a test message to the logger"
 					},
 					"response": []
+				},
+				{
+					"name": "Service Bus Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{warEagleSpiritBaseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{warEagleSpiritFunctionKey}}",
+							"host": ["{{warEagleSpiritBaseUrl}}"],
+							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{warEagleSpiritFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to Azure Service Bus (Tiger Transit) and validates configuration"
+					},
+					"response": []
+				},
+				{
+					"name": "SendGrid Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{warEagleSpiritBaseUrl}}/api/diagnostics/sendGridConnectivityTest?code={{warEagleSpiritFunctionKey}}",
+							"host": ["{{warEagleSpiritBaseUrl}}"],
+							"path": ["api", "diagnostics", "sendGridConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{warEagleSpiritFunctionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests connectivity to SendGrid email service and validates API key configuration (uses sandbox mode - no emails sent)"
+					},
+					"response": []
 				}
 			],
 			"description": "Diagnostic endpoints for testing and monitoring the War Eagle Spirit email handler"
