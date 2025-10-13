@@ -1,0 +1,4 @@
+# Exclude Postman environment example files from GitHub secret scanning
+# These files contain example/template API keys and function keys for documentation
+environments/*.example.json -diff linguist-generated=true
+environments/*.example.json secret_scanning=false
