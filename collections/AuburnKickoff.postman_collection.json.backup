@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "auburn-kickoff-collection-001",
+		"name": "FDD-2120 -- Transfer Order Notices: Trigger (Auburn Kickoff)",
+		"description": "Postman collection for Auburn Kickoff Azure Function - HTTP trigger for Segra Transfer Orders. This is the first service in the War Eagle FDD-2120 microservices architecture.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Get Auth0 Token (MDSI)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract access token from response and save to environment variable",
+									"if (pm.response.code === 200) {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.access_token) {",
+									"        pm.environment.set('auth0_bearer_token', jsonData.access_token);",
+									"        console.log('✅ Auth0 token saved to auth0_bearer_token');",
+									"        console.log('Token expires in:', jsonData.expires_in, 'seconds');",
+									"    }",
+									"}",
+									"",
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has access_token', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('access_token');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"client_id\": \"{{auth0_client_id}}\",\n  \"client_secret\": \"{{auth0_client_secret}}\",\n  \"audience\": \"{{auth0_audience}}\",\n  \"grant_type\": \"client_credentials\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth0_token_url}}",
+							"host": ["{{auth0_token_url}}"]
+						},
+						"description": "Obtain Auth0 bearer token for Auburn Kickoff API authentication using MDSi Cloud City Auth0 tenant.\n\n**Environment-Specific URLs:**\n- DEV: https://mdsi-cloud-city-dev.auth0.com/oauth/token\n- UAT: https://mdsi-cloud-city-uat.auth0.com/oauth/token\n- PRD: https://mdsi-cloud-city-prd.auth0.com/oauth/token\n\n**Required Environment Variables:**\n- `auth0_token_url`: Full Auth0 token endpoint URL\n- `auth0_client_id`: OAuth client ID (environment-specific)\n- `auth0_client_secret`: OAuth client secret (provided separately)\n- `auth0_audience`: API audience (e.g., https://segra-integration-dev.mdsiinc.com)\n\n**Response:**\nThe access token is automatically saved to `auth0_bearer_token` environment variable and used for subsequent API requests.\n\n**Token Expiration:**\nTokens expire after 24 hours (86400 seconds). Re-run this request to obtain a fresh token when expired."
+					},
+					"response": []
+				}
+			],
+			"description": "Auth0 authentication endpoints for obtaining bearer tokens"
+		},
+		{
+			"name": "Transfer Orders",
+			"item": [
+				{
+					"name": "Submit Transfer Order (Test Data)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth0_bearer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transferOrderNumber\": \"TO-2025-001234\",\n  \"deliveryModeCode\": \"Standard\",\n  \"requestedDeliveryDate\": \"2025-01-15T00:00:00Z\",\n  \"installationAddressLocationCode\": \"1200Greenbrier\",\n  \"destinationAddressLocationCode\": \"500Summers\",\n  \"contact\": {\n    \"name\": \"John Smith\",\n    \"email\": \"john.smith@segra.com\",\n    \"phone\": \"+1-555-123-4567\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 10\n    },\n    {\n      \"lineNumber\": 2,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 2\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders",
+							"host": ["{{auburnKickoffBaseUrl}}"],
+							"path": ["api", "transferOrders"]
+						},
+						"description": "Submit a Transfer Order to Auburn Kickoff. This endpoint authenticates via Auth0, logs the payload to CosmosDB, and publishes to Service Bus.\n\n**Test Data:**\n- itemNumber: PHNAVAIP9608G → Product: 700507946 (IP TELEPHONE 9608G GRAY GIGABIT ETHERNET)\n- itemNumber: 705180505 → Product: NC-55-32T16Q4H-AT (Cisco NCS 5500 Series 48-port line card)\n\n**Response:** HTTP 200 OK with acceptance message, transferOrderNumber, and correlationId\n\n**CosmosDB Audit:** Logs to war-eagle-db-01/kick-six-express"
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Transfer Order (Multiple Products)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth0_bearer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transferOrderNumber\": \"TO-2025-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Expedited\",\n  \"requestedDeliveryDate\": \"{{$isoTimestamp}}\",\n  \"installationAddressLocationCode\": \"1200Greenbrier\",\n  \"destinationAddressLocationCode\": \"500Summers\",\n  \"contact\": {\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"test@segra.com\",\n    \"phone\": \"+1-555-{{$randomInt}}\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 25\n    },\n    {\n      \"lineNumber\": 2,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 5\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders",
+							"host": ["{{auburnKickoffBaseUrl}}"],
+							"path": ["api", "transferOrders"]
+						},
+						"description": "Submit a Transfer Order with dynamic test data using Postman variables.\n\n**Uses Postman Dynamic Variables:**\n- $randomInt: Random integer for unique reference numbers\n- $randomFullName: Random contact name\n- $isoTimestamp: Current timestamp in ISO format"
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Transfer Order - SEGR003 (via env var)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth0_bearer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transferOrderNumber\": \"TO-SEGR003-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Standard\",\n  \"requestedDeliveryDate\": \"2025-02-01T00:00:00Z\",\n  \"installationAddressLocationCode\": \"1200Greenbrier\",\n  \"destinationAddressLocationCode\": \"500Summers\",\n  \"contact\": {\n    \"name\": \"Division Test User\",\n    \"email\": \"divtest@segra.com\",\n    \"phone\": \"+1-555-000-0001\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 15\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders",
+							"host": ["{{auburnKickoffBaseUrl}}"],
+							"path": ["api", "transferOrders"]
+						},
+						"description": "Submit Transfer Order (divisionErpId is now set to SEGR003 via environment variable)"
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Transfer Order - Alternative Test Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth0_bearer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transferOrderNumber\": \"TO-SEGR003-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Expedited\",\n  \"requestedDeliveryDate\": \"2025-02-05T00:00:00Z\",\n  \"installationAddressLocationCode\": \"500Summers\",\n  \"destinationAddressLocationCode\": \"1200Greenbrier\",\n  \"contact\": {\n    \"name\": \"Division Test User\",\n    \"email\": \"divtest@segra.com\",\n    \"phone\": \"+1-555-000-0002\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 3\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders",
+							"host": ["{{auburnKickoffBaseUrl}}"],
+							"path": ["api", "transferOrders"]
+						},
+						"description": "Submit Transfer Order (divisionErpId is now set to SEGR003 via environment variable)"
+					},
+					"response": []
+				}
+			],
+			"description": "Transfer Order submission endpoints. Requires Auth0 bearer token with 'create:transfer-orders' permission."
+		},
+		{
+			"name": "Diagnostics",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auburnKickoffBaseUrl}}/api/health",
+							"host": ["{{auburnKickoffBaseUrl}}"],
+							"path": ["api", "health"]
+						},
+						"description": "Health check endpoint - returns HTTP 200 if the function app is running (if implemented)"
+					},
+					"response": []
+				}
+			],
+			"description": "Diagnostic and monitoring endpoints"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth0_bearer_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Auto-refresh Auth0 token if needed",
+					"// This script can be expanded to automatically obtain Auth0 tokens",
+					"console.log('Auburn Kickoff - Auth0 Bearer Token:', pm.environment.get('auth0_bearer_token') ? 'Set' : 'Not Set');"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Validate 200 OK response",
+					"pm.test('Status code is 200 OK', function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"// Extract and save correlation ID and transfer order number",
+					"if (pm.response.code === 200) {",
+					"    const jsonData = pm.response.json();",
+					"    if (jsonData.correlationId) {",
+					"        pm.environment.set('last_correlation_id', jsonData.correlationId);",
+					"        console.log('Correlation ID:', jsonData.correlationId);",
+					"    }",
+					"    if (jsonData.transferOrderNumber) {",
+					"        console.log('Transfer Order Number:', jsonData.transferOrderNumber);",
+					"    }",
+					"    if (jsonData.message) {",
+					"        console.log('Message:', jsonData.message);",
+					"    }",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:7071",
+			"type": "string"
+		}
+	]
+}

@@ -92,7 +92,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"transferOrderNumber\": \"TO-2025-001234\",\n  \"deliveryModeCode\": \"Standard\",\n  \"requestedDeliveryDate\": \"2025-01-15T00:00:00Z\",\n  \"installationAddressLocationCode\": \"1200Greenbrier\",\n  \"destinationAddressLocationCode\": \"500Summers\",\n  \"contact\": {\n    \"name\": \"John Smith\",\n    \"email\": \"john.smith@segra.com\",\n    \"phone\": \"+1-555-123-4567\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 10\n    },\n    {\n      \"lineNumber\": 2,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 2\n    }\n  ]\n}",
+							"raw": "[\n  {\n    \"TransferOrderNumber\": \"TO-2025-10-13.1\",\n    \"LineNumber\": 1,\n    \"DeliveryModeCode\": \"Standard\",\n    \"ExternalLineNumber\": \"EXT-LINE-001\",\n    \"ExternalOrderNumber\": \"12345\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"PHNAVAIP9608G\",\n    \"ReceivingAddressName\": \"Greenbrier Distribution Center - Charleston, WV\",\n    \"ReceivingWarehouseID\": \"1200Greenbrier\",\n    \"TransferQuantity\": 10\n  },\n  {\n    \"TransferOrderNumber\": \"TO-2025-10-13.1\",\n    \"LineNumber\": 2,\n    \"DeliveryModeCode\": \"Standard\",\n    \"ExternalLineNumber\": \"EXT-LINE-002\",\n    \"ExternalOrderNumber\": \"12345\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"705180505\",\n    \"ReceivingAddressName\": \"North Cedar Distribution - Knoxville, TN\",\n    \"ReceivingWarehouseID\": \"230NCEDAR\",\n    \"TransferQuantity\": 2\n  }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -111,7 +111,7 @@
 								}
 							]
 						},
-						"description": "Submit a Transfer Order to Auburn Kickoff. This endpoint authenticates via Auth0, logs the payload to CosmosDB, and publishes to Service Bus.\n\n**Test Data:**\n- itemNumber: PHNAVAIP9608G → Product: 700507946 (IP TELEPHONE 9608G GRAY GIGABIT ETHERNET)\n- itemNumber: 705180505 → Product: NC-55-32T16Q4H-AT (Cisco NCS 5500 Series 48-port line card)\n\n**Response:** HTTP 202 Accepted with acceptance message, transferOrderNumber, and correlationId\n\n**CosmosDB Audit:** Logs to war-eagle-db-01/kick-six-express"
+						"description": "Submit a Transfer Order to Auburn Kickoff using the new flattened array payload structure. This endpoint authenticates via Auth0, validates the payload, logs to CosmosDB, and publishes to Service Bus.\n\n**Payload Structure:** Array of line items (flattened structure)\n\n**Validation Rules:**\n- Array cannot be empty\n- All TransferOrderNumbers must be identical\n- All fields are required\n\n**Test Data (Segra Item Numbers):**\n- Segra Item: PHNAVAIP9608G → MDSi translates to: 700507946 (IP TELEPHONE 9608G GRAY GIGABIT ETHERNET)\n- Segra Item: 705180505 → MDSi translates to: NC-55-32T16Q4H-AT (CISCO NCS 5500 SERIES 48-PORT LINE CARD)\n\n**Item Number Translation:** Auburn Kickoff receives Segra item numbers. Auburn Wire (downstream) translates them to MDSi manufacturer part numbers.\n\n**Response:** HTTP 202 Accepted with acceptance message, transferOrderNumber, correlationId, and lineCount\n\n**CosmosDB Audit:** Logs to war-eagle-db-01/kick-six-express"
 					},
 					"response": []
 				},
@@ -133,7 +133,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"transferOrderNumber\": \"TO-2025-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Expedited\",\n  \"requestedDeliveryDate\": \"{{$isoTimestamp}}\",\n  \"installationAddressLocationCode\": \"1200Greenbrier\",\n  \"destinationAddressLocationCode\": \"500Summers\",\n  \"contact\": {\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"test@segra.com\",\n    \"phone\": \"+1-555-{{$randomInt}}\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 25\n    },\n    {\n      \"lineNumber\": 2,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 5\n    }\n  ]\n}",
+							"raw": "[\n  {\n    \"TransferOrderNumber\": \"TO-2025-{{$randomInt}}\",\n    \"LineNumber\": 1,\n    \"DeliveryModeCode\": \"Expedited\",\n    \"ExternalLineNumber\": \"EXT-{{$randomInt}}\",\n    \"ExternalOrderNumber\": \"{{$randomInt}}\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"PHNAVAIP9608G\",\n    \"ReceivingAddressName\": \"Fountains Distribution - Charlotte, NC\",\n    \"ReceivingWarehouseID\": \"3900Fountains\",\n    \"TransferQuantity\": 25\n  },\n  {\n    \"TransferOrderNumber\": \"TO-2025-{{$randomInt}}\",\n    \"LineNumber\": 2,\n    \"DeliveryModeCode\": \"Expedited\",\n    \"ExternalLineNumber\": \"EXT-{{$randomInt}}\",\n    \"ExternalOrderNumber\": \"{{$randomInt}}\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"705180505\",\n    \"ReceivingAddressName\": \"Fountains Distribution - Charlotte, NC\",\n    \"ReceivingWarehouseID\": \"3900Fountains\",\n    \"TransferQuantity\": 5\n  }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -152,7 +152,7 @@
 								}
 							]
 						},
-						"description": "Submit a Transfer Order with dynamic test data using Postman variables.\n\n**Uses Postman Dynamic Variables:**\n- $randomInt: Random integer for unique reference numbers\n- $randomFullName: Random contact name\n- $isoTimestamp: Current timestamp in ISO format"
+						"description": "Submit a Transfer Order with dynamic test data using Postman variables (flattened array structure).\n\n**Uses Postman Dynamic Variables:**\n- $randomInt: Random integer for unique reference numbers\n- $randomFullName: Random name for distribution center\n\n**Note:** Ensure both lines have the SAME TransferOrderNumber value when testing manually"
 					},
 					"response": []
 				},
@@ -174,7 +174,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"transferOrderNumber\": \"TO-SEGR003-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Standard\",\n  \"requestedDeliveryDate\": \"2025-02-01T00:00:00Z\",\n  \"installationAddressLocationCode\": \"1200Greenbrier\",\n  \"destinationAddressLocationCode\": \"500Summers\",\n  \"contact\": {\n    \"name\": \"Division Test User\",\n    \"email\": \"divtest@segra.com\",\n    \"phone\": \"+1-555-000-0001\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"PHNAVAIP9608G\",\n      \"transferQuantity\": 15\n    }\n  ]\n}",
+							"raw": "[\n  {\n    \"TransferOrderNumber\": \"TO-SEGR003-{{$randomInt}}\",\n    \"LineNumber\": 1,\n    \"DeliveryModeCode\": \"Standard\",\n    \"ExternalLineNumber\": \"SEGR003-EXT-001\",\n    \"ExternalOrderNumber\": \"67890\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"PHNAVAIP9608G\",\n    \"ReceivingAddressName\": \"Hadley Distribution - Overland Park, KS\",\n    \"ReceivingWarehouseID\": \"5022Hadley\",\n    \"TransferQuantity\": 15\n  }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -193,7 +193,7 @@
 								}
 							]
 						},
-						"description": "Submit Transfer Order (divisionErpId is now set to SEGR003 via environment variable)"
+						"description": "Submit Transfer Order with SEGR003 prefix using flattened array structure (divisionErpId is now set to SEGR003 via environment variable)"
 					},
 					"response": []
 				},
@@ -215,7 +215,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"transferOrderNumber\": \"TO-SEGR003-{{$randomInt}}\",\n  \"deliveryModeCode\": \"Expedited\",\n  \"requestedDeliveryDate\": \"2025-02-05T00:00:00Z\",\n  \"installationAddressLocationCode\": \"500Summers\",\n  \"destinationAddressLocationCode\": \"1200Greenbrier\",\n  \"contact\": {\n    \"name\": \"Division Test User\",\n    \"email\": \"divtest@segra.com\",\n    \"phone\": \"+1-555-000-0002\"\n  },\n  \"lines\": [\n    {\n      \"lineNumber\": 1,\n      \"inventoryUnitSymbol\": \"ea\",\n      \"itemNumber\": \"705180505\",\n      \"transferQuantity\": 3\n    }\n  ]\n}",
+							"raw": "[\n  {\n    \"TransferOrderNumber\": \"TO-SEGR003-{{$randomInt}}\",\n    \"LineNumber\": 1,\n    \"DeliveryModeCode\": \"Expedited\",\n    \"ExternalLineNumber\": \"SEGR003-ALT-001\",\n    \"ExternalOrderNumber\": \"54321\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"705180505\",\n    \"ReceivingAddressName\": \"Summers Warehouse - Charleston, WV\",\n    \"ReceivingWarehouseID\": \"500Summers\",\n    \"TransferQuantity\": 3\n  }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -234,7 +234,7 @@
 								}
 							]
 						},
-						"description": "Submit Transfer Order (divisionErpId is now set to SEGR003 via environment variable)"
+						"description": "Submit Transfer Order with alternative warehouse using flattened array structure (divisionErpId is now set to SEGR003 via environment variable)"
 					},
 					"response": []
 				}
