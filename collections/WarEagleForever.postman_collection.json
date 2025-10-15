@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "war-eagle-forever-collection-001",
+		"name": "FDD-2120 ACK: Step 5 - Email (War Eagle Forever)",
+		"description": "Postman collection for War Eagle Forever Azure Function App - Email notification handler for ACK events. Sends email notifications via SendGrid for success and failure events.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Email",
+			"item": [
+				{
+					"name": "Send Test Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"to\": \"test@example.com\",\n  \"subject\": \"Test Email\",\n  \"body\": \"This is a test email from Postman\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/sendTestEmail?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "sendTestEmail"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Sends a test email via SendGrid"
+					},
+					"response": []
+				}
+			],
+			"description": "Email functionality endpoints"
+		},
+		{
+			"name": "Diagnostics",
+			"item": [
+				{
+					"name": "Heartbeat",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/heartbeat?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "heartbeat"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Health check endpoint"
+					},
+					"response": []
+				},
+				{
+					"name": "Version (Full JSON)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "version"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Returns version information"
+					},
+					"response": []
+				},
+				{
+					"name": "API Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/apiName?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "apiName"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Returns application name"
+					},
+					"response": []
+				},
+				{
+					"name": "Exception Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/exceptionTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "exceptionTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests exception handling"
+					},
+					"response": []
+				},
+				{
+					"name": "Log Test",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"Test log message\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/logTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "logTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests logging functionality"
+					},
+					"response": []
+				},
+				{
+					"name": "Service Bus Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests Service Bus connectivity"
+					},
+					"response": []
+				},
+				{
+					"name": "SendGrid Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/sendGridConnectivityTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "sendGridConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests SendGrid API connectivity"
+					},
+					"response": []
+				}
+			],
+			"description": "Diagnostic endpoints"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [""]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [""]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://func-wareagle-war-eagle-forever-v1-0-eus-dev.azurewebsites.net",
+			"type": "string"
+		},
+		{
+			"key": "functionKey",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

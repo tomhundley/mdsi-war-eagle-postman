@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "jarrett-stidham-collection-001",
+		"name": "FDD-2120 ACK: Step 4 - Success (Jarrett Stidham)",
+		"description": "Postman collection for Jarrett Stidham Azure Function App - ACK success notification router. Processes successful ACK messages and routes to notification channels.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Diagnostics",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/health?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "health"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Health check endpoint"
+					},
+					"response": []
+				},
+				{
+					"name": "Heartbeat",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/heartbeat?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "heartbeat"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Health check endpoint"
+					},
+					"response": []
+				},
+				{
+					"name": "Version (Full JSON)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "version"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Returns version information"
+					},
+					"response": []
+				},
+				{
+					"name": "API Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/apiName?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "apiName"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Returns application name"
+					},
+					"response": []
+				},
+				{
+					"name": "Service Bus Connectivity Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
+							"query": [
+								{
+									"key": "code",
+									"value": "{{functionKey}}",
+									"description": "Function authorization key"
+								}
+							]
+						},
+						"description": "Tests Service Bus connectivity"
+					},
+					"response": []
+				}
+			],
+			"description": "Diagnostic endpoints"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [""]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [""]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://func-wareagle-jarrett-stidham-v1-0-eus-dev.azurewebsites.net",
+			"type": "string"
+		},
+		{
+			"key": "functionKey",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

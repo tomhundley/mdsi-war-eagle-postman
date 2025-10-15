@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "war-eagle-spirit-collection-001",
-		"name": "FDD-2119 -- PO Receipts: Email Handler (War Eagle Spirit)",
+		"name": "FDD-2119 PO Receipts: Step 5 - Email (War Eagle Spirit)",
 		"description": "Postman collection for War Eagle Spirit Azure Function App - Email notification handler service for purchase order receipt events",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

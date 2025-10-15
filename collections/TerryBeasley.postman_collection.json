@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "auburn-thunder-collection-001",
-		"name": "FDD-2119 PO Receipts: Step 5 - Slack (Auburn Thunder)",
-		"description": "Postman collection for Auburn Thunder Azure Function App - Slack notification handler service for purchase order receipt events",
+		"_postman_id": "terry-beasley-collection-001",
+		"name": "FDD-2120 ACK: Step 2 - Processor (Terry Beasley)",
+		"description": "Postman collection for Terry Beasley Azure Function App - ACK processing and transformation service. Processes ACK messages from Service Bus and prepares them for integration.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -15,13 +15,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/heartbeat?code={{auburnThunderFunctionKey}}",
-							"host": ["{{auburnThunderBaseUrl}}"],
+							"raw": "{{baseUrl}}/api/diagnostics/heartbeat?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
 							"path": ["api", "diagnostics", "heartbeat"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{auburnThunderFunctionKey}}",
+									"value": "{{functionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -31,29 +31,23 @@
 					"response": []
 				},
 				{
-					"name": "Version",
+					"name": "Version (Full JSON)",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/version?code={{auburnThunderFunctionKey}}",
-							"host": ["{{auburnThunderBaseUrl}}"],
+							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
 							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{auburnThunderFunctionKey}}",
+									"value": "{{functionKey}}",
 									"description": "Function authorization key"
-								},
-								{
-									"key": "includeApiName",
-									"value": "false",
-									"description": "Set to true to include API name in response",
-									"disabled": true
 								}
 							]
 						},
-						"description": "Returns the application version. Add query param includeApiName=true to include the API name"
+						"description": "Returns comprehensive version information as JSON"
 					},
 					"response": []
 				},
@@ -63,13 +57,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/apiName?code={{auburnThunderFunctionKey}}",
-							"host": ["{{auburnThunderBaseUrl}}"],
+							"raw": "{{baseUrl}}/api/diagnostics/apiName?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
 							"path": ["api", "diagnostics", "apiName"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{auburnThunderFunctionKey}}",
+									"value": "{{functionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -84,18 +78,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/exceptionTest?code={{auburnThunderFunctionKey}}",
-							"host": ["{{auburnThunderBaseUrl}}"],
+							"raw": "{{baseUrl}}/api/diagnostics/exceptionTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
 							"path": ["api", "diagnostics", "exceptionTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{auburnThunderFunctionKey}}",
+									"value": "{{functionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
-						"description": "Triggers a test exception to validate exception handling and logging"
+						"description": "Triggers a test exception to validate exception handling"
 					},
 					"response": []
 				},
@@ -114,18 +108,18 @@
 							"raw": "{\n  \"message\": \"Test log message from Postman\"\n}"
 						},
 						"url": {
-							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/logTest?code={{auburnThunderFunctionKey}}",
-							"host": ["{{auburnThunderBaseUrl}}"],
+							"raw": "{{baseUrl}}/api/diagnostics/logTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
 							"path": ["api", "diagnostics", "logTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{auburnThunderFunctionKey}}",
+									"value": "{{functionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
-						"description": "Tests the logging configuration by sending a test message to the logger"
+						"description": "Tests logging functionality"
 					},
 					"response": []
 				},
@@ -135,44 +129,72 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{auburnThunderFunctionKey}}",
-							"host": ["{{auburnThunderBaseUrl}}"],
+							"raw": "{{baseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
 							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{auburnThunderFunctionKey}}",
+									"value": "{{functionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
-						"description": "Tests connectivity to the Tiger Transit Service Bus topic subscription used for notifications"
+						"description": "Tests connectivity to Tiger Transit Service Bus"
 					},
 					"response": []
 				},
 				{
-					"name": "Slack Connectivity Test",
+					"name": "Cosmos DB Connectivity Test",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{auburnThunderBaseUrl}}/api/diagnostics/slackConnectivityTest?code={{auburnThunderFunctionKey}}",
-							"host": ["{{auburnThunderBaseUrl}}"],
-							"path": ["api", "diagnostics", "slackConnectivityTest"],
+							"raw": "{{baseUrl}}/api/diagnostics/cosmosDbConnectivityTest?code={{functionKey}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "diagnostics", "cosmosDbConnectivityTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{auburnThunderFunctionKey}}",
+									"value": "{{functionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
-						"description": "Tests connectivity to all configured Slack webhooks (success, technical failures, and business failures)"
+						"description": "Tests connectivity to Cosmos DB databases"
 					},
 					"response": []
 				}
 			],
-			"description": "Diagnostic endpoints for testing and monitoring the Auburn Thunder Slack notification handler"
+			"description": "Diagnostic and health check endpoints"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [""]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [""]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://func-wareagle-terry-beasley-v1-0-eus-dev.azurewebsites.net",
+			"type": "string"
+		},
+		{
+			"key": "functionKey",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
