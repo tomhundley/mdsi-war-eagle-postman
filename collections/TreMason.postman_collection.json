@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "tre-mason-collection-001",
-		"name": "FDD-2119 Step 3 - PO Receipts - Integration (Tre Mason)",
+		"name": "FDD-2119 PO Receipts Step 3: Integration (Tre Mason)",
 		"description": "Postman collection for Tre Mason Azure Function App - Integration configuration service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

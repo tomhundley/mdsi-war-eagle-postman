@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "war-eagle-broadcast-collection-001",
-		"name": "FDD-2120-ACK Step 5 - Transfer Order ACKs - Slack Handler (War Eagle Broadcast)",
+		"name": "FDD-2120-ACK Transfer Order ACKs Step 5: Slack Handler (War Eagle Broadcast)",
 		"description": "Postman collection for War Eagle Broadcast Azure Function App - Slack notification handler for ACK events. Sends Slack notifications for success and failure events via webhooks.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

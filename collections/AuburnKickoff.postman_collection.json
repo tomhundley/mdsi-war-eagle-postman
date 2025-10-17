@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "auburn-kickoff-collection-001",
-		"name": "FDD-2120 Step 1 - Transfer Order Notices - Trigger (Auburn Kickoff)",
+		"name": "FDD-2120 Transfer Orders Step 1: Trigger (Auburn Kickoff)",
 		"description": "Postman collection for Auburn Kickoff Azure Function App - HTTP API for receiving Transfer Orders from Segra and publishing to Service Bus. Version is managed by scripts/build/set-version.sh using semantic versioning (0.1.N auto-increment).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -75,7 +75,7 @@
 			"name": "Transfer Orders",
 			"item": [
 				{
-					"name": "Submit Transfer Order (Test Data)",
+					"name": "Submit Transfer Order - Test Order 2025-10-14",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -92,7 +92,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n  {\n    \"TransferOrderNumber\": \"TO-2025-10-13.1\",\n    \"LineNumber\": 1,\n    \"DeliveryModeCode\": \"Standard\",\n    \"ExternalLineNumber\": \"EXT-LINE-001\",\n    \"ExternalOrderNumber\": \"12345\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"PHNAVAIP9608G\",\n    \"ReceivingAddressName\": \"Greenbrier Distribution Center - Charleston, WV\",\n    \"ReceivingWarehouseID\": \"1200Greenbrier\",\n    \"TransferQuantity\": 10\n  },\n  {\n    \"TransferOrderNumber\": \"TO-2025-10-13.1\",\n    \"LineNumber\": 2,\n    \"DeliveryModeCode\": \"Standard\",\n    \"ExternalLineNumber\": \"EXT-LINE-002\",\n    \"ExternalOrderNumber\": \"12345\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"705180505\",\n    \"ReceivingAddressName\": \"North Cedar Distribution - Knoxville, TN\",\n    \"ReceivingWarehouseID\": \"230NCEDAR\",\n    \"TransferQuantity\": 2\n  }\n]",
+							"raw": "[\n  {\n    \"TransferOrderNumber\": \"Test Order {{$timestamp}}\",\n    \"DivisionErpId\": \"{{divisionErpId}}\",\n    \"DeploymentRequestTypeId\": \"{{deploymentRequestTypeId}}\",\n    \"LineNumber\": 1,\n    \"DeliveryModeCode\": \"Standard\",\n    \"ExternalLineNumber\": \"EXT-LINE-001\",\n    \"ExternalOrderNumber\": \"{{$randomInt}}\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"PHNAVAIP9608G\",\n    \"ReceivingAddressName\": \"Greenbrier Distribution Center - Charleston, WV\",\n    \"ReceivingWarehouseID\": \"1200Greenbrier\",\n    \"TransferQuantity\": 7\n  },\n  {\n    \"TransferOrderNumber\": \"Test Order {{$timestamp}}\",\n    \"DivisionErpId\": \"{{divisionErpId}}\",\n    \"DeploymentRequestTypeId\": \"{{deploymentRequestTypeId}}\",\n    \"LineNumber\": 2,\n    \"DeliveryModeCode\": \"Standard\",\n    \"ExternalLineNumber\": \"EXT-LINE-002\",\n    \"ExternalOrderNumber\": \"{{$randomInt}}\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"705180505\",\n    \"ReceivingAddressName\": \"North Cedar Distribution - Knoxville, TN\",\n    \"ReceivingWarehouseID\": \"230NCEDAR\",\n    \"TransferQuantity\": 8\n  }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -111,130 +111,7 @@
 								}
 							]
 						},
-						"description": "Submit a Transfer Order to Auburn Kickoff using the new flattened array payload structure. This endpoint authenticates via Auth0, validates the payload, logs to CosmosDB, and publishes to Service Bus.\n\n**Payload Structure:** Array of line items (flattened structure)\n\n**Validation Rules:**\n- Array cannot be empty\n- All TransferOrderNumbers must be identical\n- All fields are required\n\n**Test Data (Segra Item Numbers):**\n- Segra Item: PHNAVAIP9608G → MDSi translates to: 700507946 (IP TELEPHONE 9608G GRAY GIGABIT ETHERNET)\n- Segra Item: 705180505 → MDSi translates to: NC-55-32T16Q4H-AT (CISCO NCS 5500 SERIES 48-PORT LINE CARD)\n\n**Item Number Translation:** Auburn Kickoff receives Segra item numbers. Auburn Wire (downstream) translates them to MDSi manufacturer part numbers.\n\n**Response:** HTTP 202 Accepted with acceptance message, transferOrderNumber, correlationId, and lineCount\n\n**CosmosDB Audit:** Logs to war-eagle-db-01/kick-six-express"
-					},
-					"response": []
-				},
-				{
-					"name": "Submit Transfer Order (Multiple Products)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{auth0_bearer_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n  {\n    \"TransferOrderNumber\": \"TO-2025-{{$randomInt}}\",\n    \"LineNumber\": 1,\n    \"DeliveryModeCode\": \"Expedited\",\n    \"ExternalLineNumber\": \"EXT-{{$randomInt}}\",\n    \"ExternalOrderNumber\": \"{{$randomInt}}\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"PHNAVAIP9608G\",\n    \"ReceivingAddressName\": \"Fountains Distribution - Charlotte, NC\",\n    \"ReceivingWarehouseID\": \"3900Fountains\",\n    \"TransferQuantity\": 25\n  },\n  {\n    \"TransferOrderNumber\": \"TO-2025-{{$randomInt}}\",\n    \"LineNumber\": 2,\n    \"DeliveryModeCode\": \"Expedited\",\n    \"ExternalLineNumber\": \"EXT-{{$randomInt}}\",\n    \"ExternalOrderNumber\": \"{{$randomInt}}\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"705180505\",\n    \"ReceivingAddressName\": \"Fountains Distribution - Charlotte, NC\",\n    \"ReceivingWarehouseID\": \"3900Fountains\",\n    \"TransferQuantity\": 5\n  }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders?code={{auburnKickoffFunctionKey}}",
-							"host": ["{{auburnKickoffBaseUrl}}"],
-							"path": ["api", "transferOrders"],
-							"query": [
-								{
-									"key": "code",
-									"value": "{{auburnKickoffFunctionKey}}",
-									"description": "Function authorization key"
-								}
-							]
-						},
-						"description": "Submit a Transfer Order with dynamic test data using Postman variables (flattened array structure).\n\n**Uses Postman Dynamic Variables:**\n- $randomInt: Random integer for unique reference numbers\n- $randomFullName: Random name for distribution center\n\n**Note:** Ensure both lines have the SAME TransferOrderNumber value when testing manually"
-					},
-					"response": []
-				},
-				{
-					"name": "Submit Transfer Order - SEGR003 (via env var)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{auth0_bearer_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n  {\n    \"TransferOrderNumber\": \"TO-SEGR003-{{$randomInt}}\",\n    \"LineNumber\": 1,\n    \"DeliveryModeCode\": \"Standard\",\n    \"ExternalLineNumber\": \"SEGR003-EXT-001\",\n    \"ExternalOrderNumber\": \"67890\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"PHNAVAIP9608G\",\n    \"ReceivingAddressName\": \"Hadley Distribution - Overland Park, KS\",\n    \"ReceivingWarehouseID\": \"5022Hadley\",\n    \"TransferQuantity\": 15\n  }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders?code={{auburnKickoffFunctionKey}}",
-							"host": ["{{auburnKickoffBaseUrl}}"],
-							"path": ["api", "transferOrders"],
-							"query": [
-								{
-									"key": "code",
-									"value": "{{auburnKickoffFunctionKey}}",
-									"description": "Function authorization key"
-								}
-							]
-						},
-						"description": "Submit Transfer Order with SEGR003 prefix using flattened array structure (divisionErpId is now set to SEGR003 via environment variable)"
-					},
-					"response": []
-				},
-				{
-					"name": "Submit Transfer Order - Alternative Test Data",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{auth0_bearer_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n  {\n    \"TransferOrderNumber\": \"TO-SEGR003-{{$randomInt}}\",\n    \"LineNumber\": 1,\n    \"DeliveryModeCode\": \"Expedited\",\n    \"ExternalLineNumber\": \"SEGR003-ALT-001\",\n    \"ExternalOrderNumber\": \"54321\",\n    \"InventoryUnitSymbol\": \"ea\",\n    \"ItemNumber\": \"705180505\",\n    \"ReceivingAddressName\": \"Summers Warehouse - Charleston, WV\",\n    \"ReceivingWarehouseID\": \"500Summers\",\n    \"TransferQuantity\": 3\n  }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{auburnKickoffBaseUrl}}/api/transferOrders?code={{auburnKickoffFunctionKey}}",
-							"host": ["{{auburnKickoffBaseUrl}}"],
-							"path": ["api", "transferOrders"],
-							"query": [
-								{
-									"key": "code",
-									"value": "{{auburnKickoffFunctionKey}}",
-									"description": "Function authorization key"
-								}
-							]
-						},
-						"description": "Submit Transfer Order with alternative warehouse using flattened array structure (divisionErpId is now set to SEGR003 via environment variable)"
+						"description": "Submit a Transfer Order to Auburn Kickoff using the flattened array payload structure.\n\n**Payload Structure:** Array of line items (flattened structure)\n\n**Validation Rules:**\n- Array cannot be empty\n- All TransferOrderNumbers must be identical\n- All fields are required\n\n**Test Data (Segra Item Numbers):**\n- Segra Item: PHNAVAIP9608G → MDSi translates to: 700507946 (IP TELEPHONE 9608G GRAY GIGABIT ETHERNET)\n- Segra Item: 705180505 → MDSi translates to: NC-55-32T16Q4H-AT (CISCO NCS 5500 SERIES 48-PORT LINE CARD)\n\n**Test Locations:**\n- 1200Greenbrier: Greenbrier Distribution Center - Charleston, WV (Location ID: 000107284)\n- 230NCEDAR: North Cedar Distribution - Knoxville, TN (Location ID: 000107982)\n- 320NCedarBluff: Alternative Knoxville location (Location ID: 000107982)\n- 5022Hadley: Hadley Distribution - Overland Park, KS (Location ID: 000108082)\n- 141528th: West Des Moines, IA (Location ID: 000108085)\n- 945Norkolk: Norfolk, VA (Location ID: 000108083)\n- 7200Bishop: Plano, TX (Location ID: 000107983)\n- 1Lumos: Waynesboro, VA (Lumos Plaza)\n- 9380Station: Lone Tree, CO\n\n**Item Number Translation:** Auburn Kickoff receives Segra item numbers. Auburn Wire (downstream) translates them to MDSi manufacturer part numbers.\n\n**Dynamic Variables:**\n- {{$timestamp}}: Current Unix timestamp for unique order identification\n- {{$randomInt}}: Random integer for external reference numbers\n\n**Response:** HTTP 202 Accepted with acceptance message, transferOrderNumber, correlationId, and lineCount\n\n**CosmosDB Audit:** Logs to war-eagle-db-01/kick-six-express"
 					},
 					"response": []
 				}

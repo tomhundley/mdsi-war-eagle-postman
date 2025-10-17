@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "auburn-thunder-collection-001",
-		"name": "FDD-2119 Step 5 - PO Receipts - Slack Handler (Auburn Thunder)",
+		"name": "FDD-2119 PO Receipts Step 5: Slack Handler (Auburn Thunder)",
 		"description": "Postman collection for Auburn Thunder Azure Function App - Slack notification handler service for purchase order receipt events",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

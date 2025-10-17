@@ -1,7 +1,7 @@
 {
     "info": {
         "_postman_id": "nick-fairley-collection-001",
-        "name": "FDD-2119 Step 4 - PO Receipts - Success Handler (Nick Fairley)",
+        "name": "FDD-2119 PO Receipts Step 4: Success Handler (Nick Fairley)",
         "description": "Postman collection for Nick Fairley Azure Function App - Success handler service for purchase order receipt integration successes. Version is managed by scripts/build/build.sh using semantic versioning (0.1.N auto-increment).",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },

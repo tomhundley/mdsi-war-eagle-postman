@@ -1,38 +1,11 @@
 {
 	"info": {
-		"_postman_id": "bo-jackson-collection-001",
-		"name": "FDD-2119 PO Receipts Step 1: Trigger (Bo Jackson)",
-		"description": "Postman collection for Bo Jackson Azure Function App - Purchase Order Receipt integration service with D365. Version is managed by scripts/build/build.sh using semantic versioning (0.1.N auto-increment).",
+		"_postman_id": "war-eagle-roar-collection-001",
+		"name": "FDD-2120 Transfer Orders Step 5: Slack Handler (War Eagle Roar)",
+		"description": "Postman collection for War Eagle Roar Azure Function App - Slack notification service that receives notification requests and sends Slack alerts to configured channels. Handles both success and failure notifications for transfer order processing. Version is managed by scripts/build/set-version.sh using semantic versioning (0.1.N auto-increment).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "Purchase Order Receipt",
-			"item": [
-				{
-					"name": "Trigger PO Receipt Poller (Manual)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/purchaseOrderReceipt/poll?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "purchaseOrderReceipt", "poll"],
-							"query": [
-								{
-									"key": "code",
-									"value": "{{functionKey}}",
-									"description": "Function authorization key"
-								}
-							]
-						},
-						"description": "Manually trigger the Purchase Order Receipt poller to process receipts from D365"
-					},
-					"response": []
-				}
-			],
-			"description": "Purchase Order Receipt processing endpoints"
-		},
 		{
 			"name": "Diagnostics",
 			"item": [
@@ -42,13 +15,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/heartbeat?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{warEagleRoarBaseUrl}}/api/diagnostics/heartbeat?code={{warEagleRoarFunctionKey}}",
+							"host": ["{{warEagleRoarBaseUrl}}"],
 							"path": ["api", "diagnostics", "heartbeat"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{warEagleRoarFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -63,18 +36,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{warEagleRoarBaseUrl}}/api/diagnostics/version?code={{warEagleRoarFunctionKey}}",
+							"host": ["{{warEagleRoarBaseUrl}}"],
 							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{warEagleRoarFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
-						"description": "Returns comprehensive version information as JSON object including version, environment, build timestamp, and runtime details. Version is set by the build script (scripts/build/build.sh) using semantic versioning (e.g., 0.1.5)"
+						"description": "Returns comprehensive version information as JSON object including version, environment, build timestamp, and runtime details. Version is set by the build script (scripts/build/set-version.sh) using semantic versioning (e.g., 0.1.5)"
 					},
 					"response": []
 				},
@@ -84,13 +57,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&format=simple",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{warEagleRoarBaseUrl}}/api/diagnostics/version?code={{warEagleRoarFunctionKey}}&format=simple",
+							"host": ["{{warEagleRoarBaseUrl}}"],
 							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{warEagleRoarFunctionKey}}",
 									"description": "Function authorization key"
 								},
 								{
@@ -100,7 +73,7 @@
 								}
 							]
 						},
-						"description": "Returns the application name and version as a simple string (e.g., 'bo-jackson-dev v0.1.5')"
+						"description": "Returns the application name and version as a simple string (e.g., 'war-eagle-roar-dev v0.1.5')"
 					},
 					"response": []
 				},
@@ -110,13 +83,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&format=version",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{warEagleRoarBaseUrl}}/api/diagnostics/version?code={{warEagleRoarFunctionKey}}&format=version",
+							"host": ["{{warEagleRoarBaseUrl}}"],
 							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{warEagleRoarFunctionKey}}",
 									"description": "Function authorization key"
 								},
 								{
@@ -136,13 +109,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&includeApiName=true",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{warEagleRoarBaseUrl}}/api/diagnostics/version?code={{warEagleRoarFunctionKey}}&includeApiName=true",
+							"host": ["{{warEagleRoarBaseUrl}}"],
 							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{warEagleRoarFunctionKey}}",
 									"description": "Function authorization key"
 								},
 								{
@@ -162,39 +135,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/exceptionTest?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{warEagleRoarBaseUrl}}/api/diagnostics/exceptionTest?code={{warEagleRoarFunctionKey}}",
+							"host": ["{{warEagleRoarBaseUrl}}"],
 							"path": ["api", "diagnostics", "exceptionTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{warEagleRoarFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
 						"description": "Triggers a test exception to validate exception handling and logging"
-					},
-					"response": []
-				},
-				{
-					"name": "Custom HTTP Status",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/customHttpStatus/418/I'm a teapot?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "diagnostics", "customHttpStatus", "418", "I'm a teapot"],
-							"query": [
-								{
-									"key": "code",
-									"value": "{{functionKey}}",
-									"description": "Function authorization key"
-								}
-							]
-						},
-						"description": "Returns a custom HTTP status code with a custom message. Format: /customHttpStatus/{statusCode}/{message}"
 					},
 					"response": []
 				},
@@ -213,13 +165,13 @@
 							"raw": "{\n  \"message\": \"Test log message from Postman\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/logTest?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{warEagleRoarBaseUrl}}/api/diagnostics/logTest?code={{warEagleRoarFunctionKey}}",
+							"host": ["{{warEagleRoarBaseUrl}}"],
 							"path": ["api", "diagnostics", "logTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{warEagleRoarFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -234,13 +186,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{warEagleRoarBaseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{warEagleRoarFunctionKey}}",
+							"host": ["{{warEagleRoarBaseUrl}}"],
 							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{warEagleRoarFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -250,49 +202,58 @@
 					"response": []
 				},
 				{
-					"name": "Cosmos DB Connectivity Test",
+					"name": "Slack Connectivity Test",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/cosmosDbConnectivityTest?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "diagnostics", "cosmosDbConnectivityTest"],
+							"raw": "{{warEagleRoarBaseUrl}}/api/diagnostics/slackConnectivityTest?code={{warEagleRoarFunctionKey}}",
+							"host": ["{{warEagleRoarBaseUrl}}"],
+							"path": ["api", "diagnostics", "slackConnectivityTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{warEagleRoarFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
-						"description": "Tests connectivity to the Jordan Hare Stadium Cosmos DB database and containers (Heisman Legends and Samford Hall). Returns connection status, database name, container information, and partition key paths"
+						"description": "Tests connectivity to Slack messaging service. Validates webhook URL and service availability. Returns connection status and configuration details."
 					},
 					"response": []
 				},
 				{
-					"name": "D365 Connectivity Test",
+					"name": "Send Test Slack Message",
 					"request": {
-						"method": "GET",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"channel\": \"#test-channel\",\n  \"message\": \"Test message from War Eagle Roar diagnostic endpoint\"\n}"
+						},
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/d365ConnectivityTest?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "diagnostics", "d365ConnectivityTest"],
+							"raw": "{{warEagleRoarBaseUrl}}/api/diagnostics/sendTestSlackMessage?code={{warEagleRoarFunctionKey}}",
+							"host": ["{{warEagleRoarBaseUrl}}"],
+							"path": ["api", "diagnostics", "sendTestSlackMessage"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{warEagleRoarFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
-						"description": "Tests connectivity to Dynamics 365 (D365). Validates OAuth token acquisition from Azure AD and verifies API connectivity with a metadata request. Returns connection status, D365 resource URL, token URL, client ID, and success message."
+						"description": "Sends a test message to Slack to verify messaging functionality. Provide channel and message content in the request."
 					},
 					"response": []
 				}
 			],
-			"description": "Diagnostic and health check endpoints for monitoring and testing the Bo Jackson function app. Version information comes from assembly metadata set during build (scripts/build/build.sh)."
+			"description": "Diagnostic and health check endpoints for monitoring and testing the War Eagle Roar function app. Version information comes from assembly metadata set during build (scripts/build/set-version.sh)."
 		}
 	],
 	"event": [
@@ -317,12 +278,12 @@
 	],
 	"variable": [
 		{
-			"key": "baseUrl",
-			"value": "https://func-bojackson-dev.azurewebsites.net",
+			"key": "warEagleRoarBaseUrl",
+			"value": "https://func-wareagleroar-dev.azurewebsites.net",
 			"type": "string"
 		},
 		{
-			"key": "functionKey",
+			"key": "warEagleRoarFunctionKey",
 			"value": "",
 			"type": "string"
 		}

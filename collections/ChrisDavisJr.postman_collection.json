@@ -1,38 +1,11 @@
 {
 	"info": {
-		"_postman_id": "bo-jackson-collection-001",
-		"name": "FDD-2119 PO Receipts Step 1: Trigger (Bo Jackson)",
-		"description": "Postman collection for Bo Jackson Azure Function App - Purchase Order Receipt integration service with D365. Version is managed by scripts/build/build.sh using semantic versioning (0.1.N auto-increment).",
+		"_postman_id": "chris-davis-jr-collection-001",
+		"name": "FDD-2120 Transfer Orders Step 3: Integration (Chris Davis Jr)",
+		"description": "Postman collection for Chris Davis Jr Azure Function App - D365 integration service that receives enriched transfer order data and integrates with Dynamics 365 Finance & Operations. This service handles the creation and submission of transfer orders in D365. Version is managed by scripts/build/set-version.sh using semantic versioning (0.1.N auto-increment).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "Purchase Order Receipt",
-			"item": [
-				{
-					"name": "Trigger PO Receipt Poller (Manual)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/purchaseOrderReceipt/poll?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "purchaseOrderReceipt", "poll"],
-							"query": [
-								{
-									"key": "code",
-									"value": "{{functionKey}}",
-									"description": "Function authorization key"
-								}
-							]
-						},
-						"description": "Manually trigger the Purchase Order Receipt poller to process receipts from D365"
-					},
-					"response": []
-				}
-			],
-			"description": "Purchase Order Receipt processing endpoints"
-		},
 		{
 			"name": "Diagnostics",
 			"item": [
@@ -42,13 +15,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/heartbeat?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{chrisDavisJrBaseUrl}}/api/diagnostics/heartbeat?code={{chrisDavisJrFunctionKey}}",
+							"host": ["{{chrisDavisJrBaseUrl}}"],
 							"path": ["api", "diagnostics", "heartbeat"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{chrisDavisJrFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -63,18 +36,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{chrisDavisJrBaseUrl}}/api/diagnostics/version?code={{chrisDavisJrFunctionKey}}",
+							"host": ["{{chrisDavisJrBaseUrl}}"],
 							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{chrisDavisJrFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
-						"description": "Returns comprehensive version information as JSON object including version, environment, build timestamp, and runtime details. Version is set by the build script (scripts/build/build.sh) using semantic versioning (e.g., 0.1.5)"
+						"description": "Returns comprehensive version information as JSON object including version, environment, build timestamp, and runtime details. Version is set by the build script (scripts/build/set-version.sh) using semantic versioning (e.g., 0.1.5)"
 					},
 					"response": []
 				},
@@ -84,13 +57,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&format=simple",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{chrisDavisJrBaseUrl}}/api/diagnostics/version?code={{chrisDavisJrFunctionKey}}&format=simple",
+							"host": ["{{chrisDavisJrBaseUrl}}"],
 							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{chrisDavisJrFunctionKey}}",
 									"description": "Function authorization key"
 								},
 								{
@@ -100,7 +73,7 @@
 								}
 							]
 						},
-						"description": "Returns the application name and version as a simple string (e.g., 'bo-jackson-dev v0.1.5')"
+						"description": "Returns the application name and version as a simple string (e.g., 'chris-davis-jr-dev v0.1.5')"
 					},
 					"response": []
 				},
@@ -110,13 +83,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&format=version",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{chrisDavisJrBaseUrl}}/api/diagnostics/version?code={{chrisDavisJrFunctionKey}}&format=version",
+							"host": ["{{chrisDavisJrBaseUrl}}"],
 							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{chrisDavisJrFunctionKey}}",
 									"description": "Function authorization key"
 								},
 								{
@@ -136,13 +109,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/version?code={{functionKey}}&includeApiName=true",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{chrisDavisJrBaseUrl}}/api/diagnostics/version?code={{chrisDavisJrFunctionKey}}&includeApiName=true",
+							"host": ["{{chrisDavisJrBaseUrl}}"],
 							"path": ["api", "diagnostics", "version"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{chrisDavisJrFunctionKey}}",
 									"description": "Function authorization key"
 								},
 								{
@@ -162,39 +135,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/exceptionTest?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{chrisDavisJrBaseUrl}}/api/diagnostics/exceptionTest?code={{chrisDavisJrFunctionKey}}",
+							"host": ["{{chrisDavisJrBaseUrl}}"],
 							"path": ["api", "diagnostics", "exceptionTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{chrisDavisJrFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
 						},
 						"description": "Triggers a test exception to validate exception handling and logging"
-					},
-					"response": []
-				},
-				{
-					"name": "Custom HTTP Status",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/customHttpStatus/418/I'm a teapot?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "diagnostics", "customHttpStatus", "418", "I'm a teapot"],
-							"query": [
-								{
-									"key": "code",
-									"value": "{{functionKey}}",
-									"description": "Function authorization key"
-								}
-							]
-						},
-						"description": "Returns a custom HTTP status code with a custom message. Format: /customHttpStatus/{statusCode}/{message}"
 					},
 					"response": []
 				},
@@ -213,13 +165,13 @@
 							"raw": "{\n  \"message\": \"Test log message from Postman\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/logTest?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{chrisDavisJrBaseUrl}}/api/diagnostics/logTest?code={{chrisDavisJrFunctionKey}}",
+							"host": ["{{chrisDavisJrBaseUrl}}"],
 							"path": ["api", "diagnostics", "logTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{chrisDavisJrFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -234,13 +186,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{chrisDavisJrBaseUrl}}/api/diagnostics/serviceBusConnectivityTest?code={{chrisDavisJrFunctionKey}}",
+							"host": ["{{chrisDavisJrBaseUrl}}"],
 							"path": ["api", "diagnostics", "serviceBusConnectivityTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{chrisDavisJrFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -250,39 +202,18 @@
 					"response": []
 				},
 				{
-					"name": "Cosmos DB Connectivity Test",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/cosmosDbConnectivityTest?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "diagnostics", "cosmosDbConnectivityTest"],
-							"query": [
-								{
-									"key": "code",
-									"value": "{{functionKey}}",
-									"description": "Function authorization key"
-								}
-							]
-						},
-						"description": "Tests connectivity to the Jordan Hare Stadium Cosmos DB database and containers (Heisman Legends and Samford Hall). Returns connection status, database name, container information, and partition key paths"
-					},
-					"response": []
-				},
-				{
 					"name": "D365 Connectivity Test",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/diagnostics/d365ConnectivityTest?code={{functionKey}}",
-							"host": ["{{baseUrl}}"],
+							"raw": "{{chrisDavisJrBaseUrl}}/api/diagnostics/d365ConnectivityTest?code={{chrisDavisJrFunctionKey}}",
+							"host": ["{{chrisDavisJrBaseUrl}}"],
 							"path": ["api", "diagnostics", "d365ConnectivityTest"],
 							"query": [
 								{
 									"key": "code",
-									"value": "{{functionKey}}",
+									"value": "{{chrisDavisJrFunctionKey}}",
 									"description": "Function authorization key"
 								}
 							]
@@ -292,7 +223,7 @@
 					"response": []
 				}
 			],
-			"description": "Diagnostic and health check endpoints for monitoring and testing the Bo Jackson function app. Version information comes from assembly metadata set during build (scripts/build/build.sh)."
+			"description": "Diagnostic and health check endpoints for monitoring and testing the Chris Davis Jr function app. Version information comes from assembly metadata set during build (scripts/build/set-version.sh)."
 		}
 	],
 	"event": [
@@ -317,12 +248,12 @@
 	],
 	"variable": [
 		{
-			"key": "baseUrl",
-			"value": "https://func-bojackson-dev.azurewebsites.net",
+			"key": "chrisDavisJrBaseUrl",
+			"value": "https://func-chrisdavisjr-dev.azurewebsites.net",
 			"type": "string"
 		},
 		{
-			"key": "functionKey",
+			"key": "chrisDavisJrFunctionKey",
 			"value": "",
 			"type": "string"
 		}
