@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "cadillac-williams-collection-001",
-		"name": "FDD-2120-ACK Transfer Order ACKs Step 3: Integration (Cadillac Williams)",
+		"name": "Submit Transfer Order - Test Order 2025-10-14",
 		"description": "Postman collection for Cadillac Williams Azure Function App - ACK aggregation and routing service. Routes processed ACKs to external systems via VNet-secured connections.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -219,6 +219,114 @@
 							]
 						},
 						"description": "Sends Transfer Order acknowledgement to Segra, mapping Segra's Transfer Order to MDSi's D365 Sales Order.\n\n**Authentication:**\n- OAuth 2.0 Client Credentials flow\n- Access token obtained from https://sso.segra.com/as/token.oauth2\n- Bearer token in Authorization header\n- client_id and client_secret in request headers\n\n**Request Body:**\n- `TransferOrderNumber`: Original Transfer Order number from Segra\n- `TransferOrderLines`: Array of line mappings\n  - `LineNumber`: Original Transfer Order line number\n  - `Seg_ExternalOrderNumber`: MDSi's D365 Sales Order number\n  - `Seg_ExternalLineNumber`: MDSi's Sales Order line number\n\n**Responses:**\n- 200 OK: Acknowledgement received successfully\n- 401 Unauthorized: Authentication failed\n- 500 Internal Server Error: Server error\n\n**Environment Variables Required:**\n- `segraBaseUrl`: Segra API base URL (varies by environment)\n- `segraClientId`: OAuth client ID\n- `segraClientSecret`: OAuth client secret\n- `segraAccessToken`: OAuth access token (obtained separately)\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer Order Acknowledgement - One Part",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{segraAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "client_id",
+								"value": "{{segraClientId}}",
+								"type": "text"
+							},
+							{
+								"key": "client_secret",
+								"value": "{{segraClientSecret}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"TransferOrderNumber\": \"TO-TEST-001\",\n    \"TransferOrderLines\": [\n        {\n            \"LineNumber\": 1,\n            \"Seg_ExternalOrderNumber\": \"SO000561300\",\n            \"Seg_ExternalLineNumber\": 1\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{segraBaseUrl}}/api/transferOrderAck",
+							"host": [
+								"{{segraBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"transferOrderAck"
+							]
+						},
+						"description": "Test Transfer Order acknowledgement with ONE part/line item."
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer Order Acknowledgement - Two Parts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{segraAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "client_id",
+								"value": "{{segraClientId}}",
+								"type": "text"
+							},
+							{
+								"key": "client_secret",
+								"value": "{{segraClientSecret}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"TransferOrderNumber\": \"TO-TEST-002\",\n    \"TransferOrderLines\": [\n        {\n            \"LineNumber\": 1,\n            \"Seg_ExternalOrderNumber\": \"SO000561301\",\n            \"Seg_ExternalLineNumber\": 1\n        },\n        {\n            \"LineNumber\": 2,\n            \"Seg_ExternalOrderNumber\": \"SO000561301\",\n            \"Seg_ExternalLineNumber\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{segraBaseUrl}}/api/transferOrderAck",
+							"host": [
+								"{{segraBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"transferOrderAck"
+							]
+						},
+						"description": "Test Transfer Order acknowledgement with TWO parts/line items."
 					},
 					"response": []
 				}
