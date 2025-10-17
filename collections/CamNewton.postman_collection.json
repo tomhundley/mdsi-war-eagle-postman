@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "cam-newton-collection-001",
-		"name": "FDD-2119 PO Receipts: Step 2 - Processor (Cam Newton)",
+		"name": "FDD-2119 Step 2 - PO Receipts - Processor (Cam Newton)",
 		"description": "Postman collection for Cam Newton Azure Function App - Purchase Order Receipt notification queue processor service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

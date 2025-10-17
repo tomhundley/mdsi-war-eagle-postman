@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "bo-jackson-collection-001",
-		"name": "FDD-2119 PO Receipts: Step 1 - Trigger (Bo Jackson)",
+		"name": "FDD-2119 Step 1 - PO Receipts - Trigger (Bo Jackson)",
 		"description": "Postman collection for Bo Jackson Azure Function App - Purchase Order Receipt integration service with D365. Version is managed by scripts/build/build.sh using semantic versioning (0.1.N auto-increment).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

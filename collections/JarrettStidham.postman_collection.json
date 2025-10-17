@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "jarrett-stidham-collection-001",
-		"name": "FDD-2120 ACK: Step 4 - Success (Jarrett Stidham)",
+		"name": "FDD-2120-ACK Step 4 - Transfer Order ACKs - Success Handler (Jarrett Stidham)",
 		"description": "Postman collection for Jarrett Stidham Azure Function App - ACK success notification router. Processes successful ACK messages and routes to notification channels.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

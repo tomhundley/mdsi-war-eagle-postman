@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "auburn-kickoff-collection-001",
-		"name": "FDD-2120 Transfer Orders: Step 1 - Trigger (Auburn Kickoff)",
+		"name": "FDD-2120 Step 1 - Transfer Order Notices - Trigger (Auburn Kickoff)",
 		"description": "Postman collection for Auburn Kickoff Azure Function App - HTTP API for receiving Transfer Orders from Segra and publishing to Service Bus. Version is managed by scripts/build/set-version.sh using semantic versioning (0.1.N auto-increment).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

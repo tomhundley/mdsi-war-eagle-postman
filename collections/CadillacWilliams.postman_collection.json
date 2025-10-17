@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "cadillac-williams-collection-001",
-		"name": "FDD-2120 ACK: Step 3 - Integrator (Cadillac Williams)",
+		"name": "FDD-2120-ACK Step 3 - Transfer Order ACKs - Integration (Cadillac Williams)",
 		"description": "Postman collection for Cadillac Williams Azure Function App - ACK aggregation and routing service. Routes processed ACKs to external systems via VNet-secured connections.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},

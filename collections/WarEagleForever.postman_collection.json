@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "war-eagle-forever-collection-001",
-		"name": "FDD-2120 ACK: Step 5 - Email (War Eagle Forever)",
+		"name": "FDD-2120-ACK Step 5 - Transfer Order ACKs - Email Handler (War Eagle Forever)",
 		"description": "Postman collection for War Eagle Forever Azure Function App - Email notification handler for ACK events. Sends email notifications via SendGrid for success and failure events.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
